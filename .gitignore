@@ -1,0 +1,10 @@
+node_modules/
+build/
+.next/
+dist/
+.env
+.env.local
+files/
+__tests__/
+android/
+ios/
