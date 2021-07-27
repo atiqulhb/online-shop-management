@@ -74,35 +74,35 @@ const Message = styled.div`
 
 export default function Messages({ from }) {
 	const { user } = useAuth()
-// 	const { data, subscribeToMore } = useQuery(ALL_MESSAGES, { variables: { senderId: from, receiverId: user?.id }})
-// 
-// 	useEffect(() => {
-// 		let unsubscribe
-// 
-// 		if (subscribeToMore) {
-// 		    unsubscribe = subscribeToMore({
-// 		      document: NEW_MESSAGE,
-// 		      updateQuery: (prev, { subscriptionData }) => {
-// 		        if (!subscriptionData.data) return prev;
-// 		        const newMessage = subscriptionData.data.newMessage;
-// 		        return Object.assign({}, prev, {
-// 		          allMessages: [...prev.allMessages, newMessage]
-// 		        });
-// 		      }
-// 		    })
-// 		    if (unsubscribe) return () => unsubscribe()
-// 		}
-// 	},[subscribeToMore])
+	const { data, subscribeToMore } = useQuery(ALL_MESSAGES, { variables: { senderId: from, receiverId: user?.id }})
+
+	useEffect(() => {
+		let unsubscribe
+
+		if (subscribeToMore) {
+		    unsubscribe = subscribeToMore({
+		      document: NEW_MESSAGE,
+		      updateQuery: (prev, { subscriptionData }) => {
+		        if (!subscriptionData.data) return prev;
+		        const newMessage = subscriptionData.data.newMessage;
+		        return Object.assign({}, prev, {
+		          allMessages: [...prev.allMessages, newMessage]
+		        });
+		      }
+		    })
+		    if (unsubscribe) return () => unsubscribe()
+		}
+	},[subscribeToMore])
 
 	return (
 		<MessagesStyle>
-			{/* <ScrollBar2> */}
-			{/* 	{data?.allMessages?.map(message => ( */}
-			{/* 		<Message key={message.id} style={ message?.from.id === user?.id ? { justifyContent: 'flex-end' } : { justifyContent: 'flex-start' }}> */}
-			{/* 			<p style={ message.from.id === user?.id ? { backgroundColor: "#CAF1DE" } : { backgroundColor: "#ddd" }}>{message.text}</p> */}
-			{/* 		</Message> */}
-			{/* 	))} */}
-			{/* </ScrollBar2> */}
+			<ScrollBar2>
+				{data?.allMessages?.map(message => (
+					<Message key={message.id} style={ message?.from.id === user?.id ? { justifyContent: 'flex-end' } : { justifyContent: 'flex-start' }}>
+						<p style={ message.from.id === user?.id ? { backgroundColor: "#CAF1DE" } : { backgroundColor: "#ddd" }}>{message.text}</p>
+					</Message>
+				))}
+			</ScrollBar2>
 		</MessagesStyle>
 	)
 }

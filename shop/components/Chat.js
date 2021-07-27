@@ -9,11 +9,9 @@ import ScrollToBottom from './ScrollToBottom'
 import { useAuth } from '../lib/authentication'
 
 const ADMIN_AND_EMPLOYEES = gql`
-	query ADMIN_AND_EMPLOYEES ($role: String!) {
+	query ADMIN_AND_EMPLOYEES ($email: String!) {
 	  allUsers (where: {
-	    role_every: {
-          title: $role
-	    }
+	    email: $email
 	  }){
 	    id
 	    name
@@ -230,7 +228,7 @@ export default function Chat() {
 		}
 	},[])
 
-	let CustomerCare = useQuery(ADMIN_AND_EMPLOYEES, { variables: { role: "ADMIN" }})
+	let CustomerCare = useQuery(ADMIN_AND_EMPLOYEES, { variables: { email: 'atiqulbhuiyan@gmail.com' }})
 		
 	CustomerCare = CustomerCare.data?.allUsers[0]
 
