@@ -138,7 +138,7 @@ export default function AuthProvider({ children }) {
   console.log('loading')
       console.log(user)
 
-  return userData ? (
+  return !userLoading ? (
 		<AuthContext.Provider
 			value={{
 		        isAuthenticated: !!user,

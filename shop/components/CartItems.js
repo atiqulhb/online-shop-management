@@ -271,7 +271,7 @@ export default function CartItems({ userId, showCartInfo }) {
 						<CartItem key={key} item={cartItem} userId={userId}/>
 					))}
 					
-					{ cartItemsInLocalStorage[0] ? 
+					{ cartItemsInLocalStorage && cartItemsInLocalStorage[0] ? 
 						(
 						<>
 						<span>these items are from localstorage</span>

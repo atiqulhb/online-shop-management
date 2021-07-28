@@ -100,9 +100,9 @@ export default function Login() {
 		e.preventDefault()
 		const res = await login({ variables: { email, password }})
 		console.log(res)
-		if (res.data?.authenticateUserWithPassword.item) {
-			setRedirectToReferrer(true)
-		}
+		// if (res.data?.authenticateUserWithPassword.item) {
+		// 	setRedirectToReferrer(true)
+		// }
 	}
 
 	if (redirectToReferrer === true) {

@@ -22,7 +22,7 @@ const CartItemNumberBadge = () => {
 	const {user} = useAuth()
 
 	const { data } = useQuery(QUERY_CART, { variables: { id: user?.id }})
-	const totalCartItems = data?.User.cart?._cartItemsMeta.count
+	const totalCartItems = data?.User.cart?._cartItemsMeta.count || 0
 	return (
 		<CartItemNumberWrapper>{totalCartItems}</CartItemNumberWrapper>
 	)

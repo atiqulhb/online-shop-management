@@ -40,7 +40,7 @@ function LoginRoute ({ children, ...rest }) {
 
 
 export default function App() {
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, isLoading } = useAuth()
    console.log(isAuthenticated)
   return (
     <>
@@ -54,7 +54,7 @@ export default function App() {
          {/*      <MainView/> */}
          {/*    </PrivateRoute> */}
          {/*  </Switch> */}
-         { isAuthenticated ? <MainView/> : <Login/> }
+         { isLoading ? <p>Loading...</p> : isAuthenticated ? <MainView/> : <Login/> }
       </AppStyle>
     </>
   )

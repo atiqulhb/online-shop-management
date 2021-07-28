@@ -9,9 +9,11 @@ const ProductCardLayout = styled.div`
 	margin: 25px;
 	height: 300px;
 	float: left;
-	box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.5);
+	box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
 	border-radius: 7.5px;
 	z-index: 99;
+	display: flex;
+	flex-direction: column;
 	@media (max-width: 650px) {
 		margin: 5px;
 		width: calc(50% - 10px);
@@ -29,10 +31,9 @@ const ProductCardLayout = styled.div`
 `
 
 const InnerWrapper = styled.div`
-	width: 100%;
 	display: flex;
 	flex-direction: column;
-	height: 270px;
+	flex: 1;
 	cursor: pointer;
 `
 
@@ -46,18 +47,14 @@ const PriceTag = styled.div`
 
 const Image = styled.div`
 	flex: 1;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	img {
 		width: 100%;
-		height: auto;
+		height: 100%;
 		object-fit: contain;
 	}
 `
 
 const AddTOCartButton = styled.div`
-	width: 100%;
 	height: 30px;
 	display: flex;
 	justify-content: center;
@@ -70,8 +67,24 @@ const AddTOCartButton = styled.div`
 
 export default function ProductCard({ data }) {
 	const { user } = useAuth()
+	console.log(user, 'from product card')
 	const { addToCart, cartState, setCartState, SaveToLocalStorage } = useLocalState()
 	const { id, price, image } = data
+
+	async function handleAddingToCart() {
+		if (user) {
+			const res = await addToCart({ variables: { productId: id, quantity: 1, userId: user.id } })
+			console.log(res)
+		} else {
+			SaveToLocalStorage({...data, quantity: 1})
+		}
+
+		if (cartState.initial) {
+			setCartState({...cartState, comeIn: true})
+		} else {
+			setCartState({...cartState, initial: true})
+		}
+	}
 	return (
 		<ProductCardLayout>
 			<Link href={{ pathname: '/product', query: { id }}}>
@@ -84,19 +97,7 @@ export default function ProductCard({ data }) {
 					</Image>
 				</InnerWrapper>
 			</Link>
-			<AddTOCartButton onClick={ async () => {
-				if(user) {
-					const res = await addToCart({ variables: { productId: id, quantity: 1, userId: user.id } })
-					console.log(res)
-				} else {
-					SaveToLocalStorage({...data, quantity: 1})
-				}
-				if (cartState.initial) {
-					setCartState({...cartState, comeIn: true})
-				} else {
-					setCartState({...cartState, initial: true})
-				}
-			}}>ADD TO CART</AddTOCartButton>
+			<AddTOCartButton onClick={handleAddingToCart}>ADD TO CART</AddTOCartButton>
 		</ProductCardLayout>
 	)
 }
