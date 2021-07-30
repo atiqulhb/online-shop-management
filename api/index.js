@@ -8,8 +8,6 @@ const { PasswordAuthStrategy } = require('@keystonejs/auth-password')
 const expressSession = require('express-session')
 const redis = require('redis')
 
-const PROJECT_NAME = 'Ecommerce-Solution'
-
 let RedisStore = require('connect-redis')(expressSession)
 let redisClient = redis.createClient()
 
@@ -22,7 +20,7 @@ const keystone = new Keystone({
     maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
     sameSite: false,
   },
-  cookieSecret: 'cookie',
+  cookieSecret: '16c2bcdfdbc66bbd563d43780fcb0288e85b0f05bf1030af55fd3e35ba56c86b',
   sessionStore: new RedisStore({ client: redisClient }),
 })
 
@@ -59,5 +57,9 @@ const apps = [
   })
 ]
 
+const configureExpress = app => {
+  app.set('trust proxy', true);
+}
 
-module.exports = { keystone, apps }
+
+module.exports = { keystone, apps, configureExpress }

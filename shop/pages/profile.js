@@ -82,6 +82,7 @@ const WishListLayout = styled.div`
 `
 
 export default function CustomerPanel(props) {
+	const { query: { id }} = useRouter()
 	const { user } = useAuth()
 	// const user = useUser()
 	console.log(user)
@@ -102,7 +103,8 @@ export default function CustomerPanel(props) {
 				<span className={ tab == 'wishlist' ? 'active' : null } onClick={() => setTab('wishlist')}>Wish List</span>
 			</ProfilePageMenu>
 			{{
-	          'profile': <Profile id={user.id}/>,
+	          // 'profile': <Profile id={user.id}/>,
+	          'profile': <Profile id={id}/>,
 	          'account-info-and-settings': <AccountInfoAndSettings/>,
 	          'transaction-history': <TransactionHistory />,
 	          'wishlist': <WishList />,

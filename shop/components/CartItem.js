@@ -36,6 +36,9 @@ const CartItemLayout = styled.div`
 	svg {
 		cursor: pointer;
 	}
+	@media (min-width: 650px) {
+		height: 50px;
+	}
 `
 
 const ImageContainer = styled.div`

@@ -131,10 +131,11 @@ export const AuthProvider = ({ children, initialUserValue }) => {
         await setUser(item);
         // console.log(user)
         // console.log( typeof setReloadCartComponent )
-        router.push({ pathname: '/profile', query: { id: item.id }})
+        // router.push({ pathname: '/profile', query: { id: item.id }})
+        router.push('/')
       }
     },
-    onError: console.error,
+    // onError: console.error,
   });
 
   const [loginExt] = useMutation(AUTH_MUTATION_CUSTOM)

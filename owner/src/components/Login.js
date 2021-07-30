@@ -105,9 +105,9 @@ export default function Login() {
 		// }
 	}
 
-	if (redirectToReferrer === true) {
-	    return <Redirect to={state?.from.pathname || '/'} />
-	  }
+	// if (redirectToReferrer === true) {
+	//     return <Redirect to={state?.from.pathname || '/'} />
+	//   }
 
 	return (
 		<LoginStyle>

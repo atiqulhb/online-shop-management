@@ -3,6 +3,7 @@ import Link from 'next/link'
 import styled from 'styled-components'
 import { gql, useMutation } from '@apollo/client'
 import { useAuth } from '../lib/authentication'
+import { useRouter } from 'next/router'
 
 const ADD_USER = gql`
   mutation ADD_PRODUCT(
@@ -19,10 +20,25 @@ const ADD_USER = gql`
     ) {
       	id
       	name
-		email
+			email
     }
   }
 `;
+
+const LOGIN = gql`
+	mutation LOGIN ($email: String, $password: String) {
+		authenticateUserWithPassword( 
+			email: $email
+			password: $password
+		){
+			item {
+				id
+				name
+				email
+			}
+		}
+	}
+`
 
 const AccountPageLayout = styled.div`
 	width: 100%;
@@ -50,11 +66,15 @@ const StyledForm = styled.form`
 `
 
 export default function Account() {
+	const router = useRouter()
+
 	const { login } = useAuth()
 	const [variables, setVariables] = useState({
 		email: '',
 		password: '',	
 	})
+
+	const [login2] = useMutation(LOGIN)
 
 	function handleChange(e) {
 		let { value, name, type } = e.target
@@ -70,7 +90,9 @@ export default function Account() {
 				onSubmit={async e => {
 			        e.preventDefault();
 			        const res = await login({ variables });
+			        // const res = await login2({ variables });
 			        console.log(res);
+			        // router.push({ pathname: '/profile', query: { id: res?.data?.authenticateUserWithPassword?.item.id }})
 				}}
 			>
 				<input type="email" name="email"  placeholder="Email" onChange={handleChange}/>

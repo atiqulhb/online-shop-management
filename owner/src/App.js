@@ -54,7 +54,7 @@ export default function App() {
          {/*      <MainView/> */}
          {/*    </PrivateRoute> */}
          {/*  </Switch> */}
-         { isLoading ? <p>Loading...</p> : isAuthenticated ? <MainView/> : <Login/> }
+        { isAuthenticated ? <MainView/> : <Login/> }
       </AppStyle>
     </>
   )

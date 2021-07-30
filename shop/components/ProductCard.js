@@ -31,14 +31,15 @@ const ProductCardLayout = styled.div`
 `
 
 const InnerWrapper = styled.div`
-	display: flex;
-	flex-direction: column;
+/*	display: flex;
+	flex-direction: column;*/
 	flex: 1;
 	cursor: pointer;
 `
 
 const PriceTag = styled.div`
 	width: 100%;
+	height: 30px;
 	span {
 		float: right;
 		margin-right: 10px;
@@ -46,7 +47,8 @@ const PriceTag = styled.div`
 `
 
 const Image = styled.div`
-	flex: 1;
+	width: 100%;
+	height: 240px;
 	img {
 		width: 100%;
 		height: 100%;
