@@ -5,6 +5,8 @@ import styled from 'styled-components'
 import routes from './starterRoutes'
 import MapGL, { Marker, CanvasOverlay } from "react-map-gl"
 import "mapbox-gl/dist/mapbox-gl.css"
+import Map from './Map'
+import Map3 from './Map3'
 
 const OrderStyle = styled.div`
 	width: 100%;
@@ -47,7 +49,7 @@ const MapArea = styled.div`
 	width: 600px;
 	height: 300px;
 	margin: 0 auto;
-	box-shadow: 0px 3px 30px 3px rgba(0,0,0,0.3)
+	/*box-shadow: 0px 3px 30px 3px rgba(0,0,0,0.3)*/
 `
 
 
@@ -82,7 +84,8 @@ export default function Order() {
 			<h1>Order</h1>
 			<div>
 				<div>
-					<h3>{orderer.name}</h3>
+					<h3>Order No: #456798</h3>
+					<h4>{orderer.name}</h4>
 					<span>{orderer.email}</span>
 				</div>
 				<div>
@@ -92,7 +95,7 @@ export default function Order() {
 			</div>
 			<div>
 				<MapArea>
-					<Map/>
+					<Map3/>
 				</MapArea>
 			</div>
 		</OrderStyle>
@@ -103,7 +106,7 @@ export default function Order() {
 
 const mapboxaccesstoken = 'pk.eyJ1IjoiYXRpcXVsaGIiLCJhIjoiY2tuZ2RjaGxmMDJ6ZDJvcGcxbG5vcXNyNiJ9.gQwP__qwBsaiHcpyyQ5OIA'
 
-function Map() {
+function Map2() {
   const [viewport, setViewPort] = useState({
     width: "100%",
     height: "100%",

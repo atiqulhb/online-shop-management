@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="793.70081"
+   height="1122.5197"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1 (1:1.1+202105261517+ce6663b3b7)"
+   sodipodi:docname="online-shop-management.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="false"
+     units="px"
+     showborder="false"
+     inkscape:zoom="0.55369075"
+     inkscape:cx="272.71541"
+     inkscape:cy="493.95805"
+     inkscape:window-width="1536"
+     inkscape:window-height="839"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <linearGradient
+       id="linearGradient6337"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop6335" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient1112"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop1110" />
+    </linearGradient>
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Drop Shadow"
+       id="filter65"
+       x="-0.50393701"
+       y="-0.2519685"
+       width="2.0708661"
+       height="1.5354331">
+      <feFlood
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood55" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite57" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="20"
+         result="blur"
+         id="feGaussianBlur59" />
+      <feOffset
+         dx="6"
+         dy="6"
+         result="offset"
+         id="feOffset61" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite63" />
+    </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1112"
+       id="linearGradient1114"
+       x1="-119.14188"
+       y1="49.421822"
+       x2="-23.891876"
+       y2="49.421822"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient6337"
+       id="linearGradient6339"
+       x1="38.401535"
+       y1="147.13433"
+       x2="134.98463"
+       y2="147.13433"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="opacity:0.3;fill:#ffffff;stroke-width:0.228335;filter:url(#filter65)"
+       id="rect31"
+       width="95.25"
+       height="190.5"
+       x="-119.14188"
+       y="39.948212"
+       ry="7.9375" />
+    <rect
+       style="opacity:0.3;fill:#ffffff;stroke-width:0.2286;stroke:url(#linearGradient1114);stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect191"
+       width="95.25"
+       height="18.94722"
+       x="-119.14188"
+       y="39.948212"
+       ry="7.9375" />
+    <text
+       xml:space="preserve"
+       style="font-size:5.40212px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.192933"
+       x="-74.934593"
+       y="52.164413"
+       id="text5114"><tspan
+         sodipodi:role="line"
+         id="tspan5112"
+         style="stroke-width:0.192933"
+         x="-74.934593"
+         y="52.164413">you have a delivery</tspan></text>
+    <use
+       x="0"
+       y="0"
+       xlink:href="#rect31"
+       id="use6252"
+       transform="translate(157.51945,1.0496805)"
+       width="100%"
+       height="100%" />
+    <rect
+       style="opacity:0.3;fill:#ffffff;stroke:url(#linearGradient6339);stroke-width:0.2286;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect6276"
+       width="96.583084"
+       height="103.30668"
+       x="38.401535"
+       y="90.923607"
+       ry="7.9375" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.23333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
+       x="73.279625"
+       y="57.836216"
+       id="text10471"><tspan
+         sodipodi:role="line"
+         id="tspan10469"
+         style="font-size:4.23333px;stroke-width:0.264583"
+         x="73.279625"
+         y="57.836216">To Arifs House at Zigatola</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 57.069574,161.30255 21.216583,-9.1159 c 0,0 -21.193543,-11.23565 0,-16.48128 21.19354,-5.24563 21.19354,20.28966 21.19354,-5.24563 0,-25.5353 28.070333,-8.28261 0,-25.5353"
+       id="path16722" />
+    <path
+       style="opacity:0.7;fill:#535d6c;stroke-width:0.2286;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path16826"
+       sodipodi:type="arc"
+       sodipodi:cx="57.069572"
+       sodipodi:cy="161.30255"
+       sodipodi:rx="5.6264796"
+       sodipodi:ry="5.6264796"
+       sodipodi:start="6.0002579"
+       sodipodi:end="5.999928"
+       sodipodi:arc-type="slice"
+       d="m 62.472356,159.73182 a 5.6264796,5.6264796 0 0 1 -3.831606,6.97339 5.6264796,5.6264796 0 0 1 -6.973702,-3.83104 5.6264796,5.6264796 0 0 1 3.830455,-6.97401 5.6264796,5.6264796 0 0 1 6.974335,3.82988 l -5.402266,1.57251 z" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
+       x="55.969971"
+       y="153.27856"
+       id="text19212"><tspan
+         sodipodi:role="line"
+         id="tspan19210"
+         style="font-size:3.175px;stroke-width:0.264583"
+         x="55.969971"
+         y="153.27856">store</tspan></text>
+    <path
+       style="opacity:0.7;fill:#aad400;stroke-width:0.864;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path22369"
+       sodipodi:type="arc"
+       sodipodi:cx="99.479698"
+       sodipodi:cy="104.92444"
+       sodipodi:rx="3.7083266"
+       sodipodi:ry="3.7083266"
+       sodipodi:start="6.00025"
+       sodipodi:end="5.9999358"
+       sodipodi:arc-type="slice"
+       d="m 103.04058,103.88916 a 3.7083266,3.7083266 0 0 1 -2.52533,4.59608 3.7083266,3.7083266 0 0 1 -4.596273,-2.52497 3.7083266,3.7083266 0 0 1 2.524608,-4.59647 3.7083266,3.7083266 0 0 1 4.596675,2.52425 l -3.560562,1.03639 z" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
+       x="98.244125"
+       y="98.673988"
+       id="text29053"><tspan
+         sodipodi:role="line"
+         id="tspan29051"
+         style="font-size:3.175px;stroke-width:0.264583"
+         x="98.244125"
+         y="98.673988">Arif's House</tspan></text>
+    <path
+       style="opacity:0.7;fill:#ccff00;stroke-width:0.864;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path34379"
+       sodipodi:type="arc"
+       sodipodi:cx="67.630013"
+       sodipodi:cy="124.54562"
+       sodipodi:rx="4.6183534"
+       sodipodi:ry="4.6183534"
+       sodipodi:start="6.00025"
+       sodipodi:end="5.9999358"
+       sodipodi:arc-type="slice"
+       d="m 72.064741,123.25629 a 4.6183534,4.6183534 0 0 1 -3.145049,5.72396 4.6183534,4.6183534 0 0 1 -5.724205,-3.1446 4.6183534,4.6183534 0 0 1 3.14415,-5.72445 4.6183534,4.6183534 0 0 1 5.724698,3.1437 l -4.434322,1.29072 z" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.17500001px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
+       x="66.171082"
+       y="113.85746"
+       id="text35835"><tspan
+         sodipodi:role="line"
+         id="tspan35833"
+         style="stroke-width:0.264583;font-size:3.17500001px"
+         x="66.171082"
+         y="113.85746">You</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 67.630013,124.54562 50.55648,138.52731 c 0,0 0.6028,-4.9847 0,0 -0.602801,4.9847 1.331012,7.58002 -0.602801,4.9847 -1.933815,-2.59531 7.115895,17.79054 7.115895,17.79054"
+       id="path39324" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
+       x="75.458084"
+       y="202.69362"
+       id="text41542"><tspan
+         sodipodi:role="line"
+         id="tspan41540"
+         style="font-size:3.175px;stroke-width:0.264583"
+         x="75.458084"
+         y="202.69362">Go to the store and pick up the items</tspan></text>
+    <path
+       style="opacity:0.7;fill:#ccff00;stroke-width:0.864;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path43240"
+       sodipodi:type="arc"
+       sodipodi:cx="83.907677"
+       sodipodi:cy="215.2374"
+       sodipodi:rx="8.8188763"
+       sodipodi:ry="8.8188763"
+       sodipodi:start="6.00025"
+       sodipodi:end="5.9999358"
+       sodipodi:arc-type="slice"
+       d="m 92.375915,212.77538 a 8.8188763,8.8188763 0 0 1 -6.005559,10.93006 8.8188763,8.8188763 0 0 1 -10.930531,-6.0047 8.8188763,8.8188763 0 0 1 6.003843,-10.931 8.8188763,8.8188763 0 0 1 10.931473,6.00298 l -8.467464,2.46468 z" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.46257px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.192365"
+       x="84.144821"
+       y="215.85928"
+       id="text46962"><tspan
+         sodipodi:role="line"
+         id="tspan46960"
+         style="font-size:3.46257px;stroke-width:0.192365"
+         x="84.144821"
+         y="215.85928">Start</tspan></text>
+  </g>
+</svg>

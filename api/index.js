@@ -11,7 +11,7 @@ const redis = require('redis')
 let RedisStore = require('connect-redis')(expressSession)
 let redisClient = redis.createClient()
 
-const { Product, User, ForgottenPasswordToken, CartItem, Cart, Order, Stock, Message, Role, Courier, Position, Delivery, customSchema } = require('./schema')
+const { Product, User, ForgottenPasswordToken, CartItem, Cart, Order, Stock, Message, Role, Courier, Position, Delivery, Location, customSchema } = require('./schema')
 
 const keystone = new Keystone({
   adapter: new MongooseAdapter({ mongoUri: process.env.DATABASE_URL }),
@@ -36,6 +36,7 @@ keystone.createList('Role', Role);
 keystone.createList('Courier', Courier);
 keystone.createList('Position', Position);
 keystone.createList('Delivery', Delivery);
+keystone.createList('Location', Location);
 
 keystone.extendGraphQLSchema(customSchema);
 
@@ -58,7 +59,8 @@ const apps = [
 ]
 
 const configureExpress = app => {
-  app.set('trust proxy', true);
+  // app.set('trust proxy', true);
+  app.set('trust proxy', 1);  
 }
 
 

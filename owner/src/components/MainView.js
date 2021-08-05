@@ -12,6 +12,7 @@ import Orders from './Orders'
 import Order from './Order'
 import Messages from './Messages'
 import OverView from './OverView'
+import Deliveries from './Deliveries'
 import { useAuth } from './AuthState'
 
 const MainViewStyle = styled.div`
@@ -115,6 +116,7 @@ export default function MainView() {
            <Link to="/products">Products</Link>
            <Link to="/customers">Customers</Link>
            <Link to="/employees">Employees</Link>
+           <Link to="/deliveries">Deliveries</Link>
            <Link to="/economy">Economy</Link>
            <Link to="/site-statistic">Site Statistic</Link>
            <Link to="/orders">Orders</Link>
@@ -136,6 +138,9 @@ export default function MainView() {
             </Route>
             <Route exact path="/employees">
               <Employees/>
+            </Route>
+            <Route exact path="/deliveries">
+              <Deliveries/>
             </Route>
             <Route exact path="/economy">
               <Economy/>

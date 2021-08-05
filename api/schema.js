@@ -129,7 +129,21 @@ exports.User = {
     secret: { type: Text }
     // plugins: [atTracking(), byTracking()],
   },
-};
+}
+
+exports.Location = {
+  fields: {
+    latitude: { type: Float },
+    longitude: { type: Float }
+  }
+}
+
+exports.DeliveryBoy = {
+  fields: {
+    name: { type: Text },
+    currentLocation: { type: Relationship, ref: 'Location' }
+  }
+}
 
 exports.Cart = {
   fields: {
@@ -190,8 +204,13 @@ exports.Courier = {
 
 exports.Position = {
   fields: {
-    Longitude: { type: Float },
-    Latitude: { type: Float },
+    longitude: { type: Float },
+    latitude: { type: Float },
+  },
+  hooks: {
+    afterChange: ({ updatedItem }) => {
+      pubsub.publish('CURRENT_LOCATION', updatedItem )
+    }
   }
 }
 
@@ -1169,6 +1188,17 @@ exports.customSchema = {
       schema: 'newMessage(senderId: ID, receiverId: ID): Message',
       subscribe: function (parent, args, context, info) {
           return pubsub.asyncIterator(['New_MESSAGE']);
+      },
+      resolver: function (item, args, context, info) {
+        console.log(item)
+          return item;
+      },
+      access: true,
+    },
+    {
+      schema: 'currentLocation: Position',
+      subscribe: function (parent, args, context, info) {
+          return pubsub.asyncIterator(['CURRENT_LOCATION']);
       },
       resolver: function (item, args, context, info) {
         console.log(item)

@@ -47,25 +47,40 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (networkError) console.log(`[Network error]: ${networkError}`);
 })
 
-function createApolloClient() {
+// function createApolloClient() {
+//   return new ApolloClient({
+//     ssrMode: typeof window === 'undefined',
+//     // link: splitLink,
+//     link: ApolloLink.from([errorLink, splitLink]),
+//     cache: new InMemoryCache({
+//       typePolicies: {
+//         Query: {
+//           fields: {
+//             allPosts: concatPagination(),
+//           },
+//         },
+//       },
+//     }),
+//   })
+// }
+
+function createApolloClient(req) {
+  console.log(req)
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
-    // link: splitLink,
-    link: ApolloLink.from([errorLink, splitLink]),
-    cache: new InMemoryCache({
-      typePolicies: {
-        Query: {
-          fields: {
-            allPosts: concatPagination(),
-          },
-        },
-      },
+    link: createUploadLink({
+      // TODO: server-side requests must have an absolute URI. We should find a way
+      // to make this part of the project config, seems highly opinionated here
+      uri: process.env.NEXT_PUBLIC_GRAPHQL_URL,
+      credentials: 'include', // Additional fetch() options like `credentials` or `headers`
+      headers: req && req.headers,
     }),
-  })
+    cache: new InMemoryCache(),
+  });
 }
 
-export function initializeApollo(initialState = null) {
-  const _apolloClient = apolloClient ?? createApolloClient()
+export function initializeApollo(initialState = null, req) {
+  const _apolloClient = apolloClient ?? createApolloClient(req)
 
   // If your page has Next.js data fetching methods that use Apollo Client, the initial state
   // gets hydrated here
