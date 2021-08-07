@@ -1,5 +1,6 @@
 const http = require('http');
 const express = require('express');
+const expressSession = require('express-session')
 const {keystone, apps} = require('./index.js');
 const {initSubscriptionServer} = require("./lib/utils");
 const cors = require('cors')
@@ -24,6 +25,13 @@ keystone
         app.use(cors({
             origin: true,
             credentials: true
+        }))
+
+        app.use(expressSession({
+          name: 'osm.sid',
+          secret: process.env.COOKIE_SECRET,
+          resave: false,
+          saveUninitialized: false,
         }))
 
         // app.use(cors({
@@ -62,3 +70,4 @@ keystone
             initSubscriptionServer(httpServer,keystone);
         })
     });
+

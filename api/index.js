@@ -20,7 +20,7 @@ const keystone = new Keystone({
     maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
     sameSite: false,
   },
-  cookieSecret: '16c2bcdfdbc66bbd563d43780fcb0288e85b0f05bf1030af55fd3e35ba56c86b',
+  cookieSecret: process.env.COOKIE_SECRET,
   sessionStore: new RedisStore({ client: redisClient }),
 })
 
@@ -58,10 +58,4 @@ const apps = [
   })
 ]
 
-const configureExpress = app => {
-  // app.set('trust proxy', true);
-  app.set('trust proxy', 1);  
-}
-
-
-module.exports = { keystone, apps, configureExpress }
+module.exports = { keystone, apps }
