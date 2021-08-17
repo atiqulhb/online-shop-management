@@ -118,7 +118,7 @@ export const AuthProvider = ({ children, initialUserValue }) => {
     onError: console.error,
   });
 
-  const [login, {data, loading: authLoading }] = useMutation(AUTH_MUTATION, {
+  const [login, { data, loading: authLoading }] = useMutation(AUTH_MUTATION, {
     onCompleted: async ({ authenticateUserWithPassword: { item } = {}, error }) => {
       if (error) {
         throw error;
@@ -131,16 +131,12 @@ export const AuthProvider = ({ children, initialUserValue }) => {
         await setUser(item);
         // console.log(user)
         // console.log( typeof setReloadCartComponent )
-        // router.push({ pathname: '/profile', query: { id: item.id }})
-        router.push('/')
+        await router.push({ pathname: '/profile', query: { id: item.id }})
+        // router.push('/')
       }
     },
     // onError: console.error,
   });
-
-  const [loginExt] = useMutation(AUTH_MUTATION_CUSTOM)
-
-  
 
   const [logout, { data: signoutData, loading: unauthLoading }] = useMutation(UNAUTH_MUTATION, {
     onCompleted: async ({ unauthenticateUser: { success } = {}, error }) => {
@@ -169,7 +165,6 @@ export const AuthProvider = ({ children, initialUserValue }) => {
         logout,
         user,
         createUser,
-        loginExt
       }}
     >
       {children}

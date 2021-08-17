@@ -7,3 +7,9 @@
 //     runtimeCaching,
 //   },
 // })
+
+module.exports = {
+  images: {
+    domains: ['localhost'],
+  },
+}

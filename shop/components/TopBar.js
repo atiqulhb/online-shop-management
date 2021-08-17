@@ -9,6 +9,7 @@ import CartItemNumberBadge from './CartItemNumberBadge'
 import useUser from '../hooks/useUser'
 import { useAuth } from '../lib/authentication'
 import { useLocalState } from './LocalState'
+import { useRouter } from 'next/router'
 
 const TopBarLayout = styled.div`
 	width: 100%;
@@ -107,13 +108,15 @@ const ToggleFullScreen = styled.div`
 `
 
 export default function TopBar() {
+	const { user, isAthenticated, isLoading } = useAuth()
 	const { menuState, setMenuState, scrollingTo, topBarInfo, setTopBarInfo } = useLocalState()
+	const { pathname } = useRouter()
+
 	const TopBarRef = useRef()
 	useEffect(() => {
 		const TopBarHeight = TopBarRef.current.clientHeight
 		setTopBarInfo({...topBarInfo, height: TopBarHeight})
 	},[])
-	const { user, isAthenticated, isLoading } = useAuth()
 	// console.log(isLoading)
 	const { toggle, fullScreen } = useFullScreen()
 	// const { user } = useUser()
@@ -163,9 +166,11 @@ export default function TopBar() {
 				<Link href="/cart">
 					<Cart>
 						<span>cart</span>
+						{ user ? (
 							<SpaceForCartBadge>
 								<CartItemNumberBadge/>
 							</SpaceForCartBadge>
+						) : null }
 					</Cart>
 				</Link>
 			</CartSection>

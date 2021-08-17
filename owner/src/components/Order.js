@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import useQueryParam from '../hooks/useQueryParam'
-import { gql, useQuery } from '@apollo/client'
+import { gql, useQuery, useSubscription } from '@apollo/client'
 import styled from 'styled-components'
 import routes from './starterRoutes'
 import MapGL, { Marker, CanvasOverlay } from "react-map-gl"
 import "mapbox-gl/dist/mapbox-gl.css"
 import Map from './Map'
 import Map3 from './Map3'
+import Map4 from './Map4'
 
 const OrderStyle = styled.div`
 	width: 100%;
@@ -68,11 +69,22 @@ const ORDER_INFO = gql`
 	}
 `
 
+const DELIVERYBOYS_CURRENT_LOCATION = gql`
+	subscription {
+	  currentLocation {
+	  	id
+	    longitude
+	    latitude
+	  }
+	}
+`
+
 export default function Order() {
 	let queryParam = useQueryParam()
 	const id = queryParam.get('id')
 
 	const { data, loading, error } = useQuery(ORDER_INFO, { variables: { id }})
+	const { data: currentLocationData } = useSubscription(DELIVERYBOYS_CURRENT_LOCATION)
 
 	if (loading) return <p>loading...</p>
 	if (error) return <p>error occured</p>
@@ -95,7 +107,8 @@ export default function Order() {
 			</div>
 			<div>
 				<MapArea>
-					<Map3/>
+					{/* <Map currentLocation={currentLocationData?.currentLocation}/> */}
+					<Map4/>
 				</MapArea>
 			</div>
 		</OrderStyle>

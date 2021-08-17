@@ -91,8 +91,8 @@ export default function Account() {
 			        e.preventDefault();
 			        const res = await login({ variables });
 			        // const res = await login2({ variables });
-			        console.log(res);
-			        // router.push({ pathname: '/profile', query: { id: res?.data?.authenticateUserWithPassword?.item.id }})
+			        console.log(res)
+			        
 				}}
 			>
 				<input type="email" name="email"  placeholder="Email" onChange={handleChange}/>

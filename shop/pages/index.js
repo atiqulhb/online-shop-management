@@ -10,7 +10,7 @@ const IndexPageLayout = styled.div`
 `
 
 export default function index({ res }) {
-	console.log(res)
+	// console.log(res)
 	return (
 		<IndexPageLayout>
 			<AllProducts/>
@@ -18,9 +18,9 @@ export default function index({ res }) {
 	)
 }
 
-export async function getServerSideProps() {
-	const client = initializeApollo()
-	const res = await client.query({ query: CURRENT_USER_QUERY })
-
-  return { props: { res } };
-}
+// export async function getServerSideProps() {
+// 	const client = initializeApollo()
+// 	const res = await client.query({ query: CURRENT_USER_QUERY })
+// 
+//   return { props: { res } };
+// }

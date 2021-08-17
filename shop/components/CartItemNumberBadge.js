@@ -1,8 +1,5 @@
-import { useEffect, useState, memo } from 'react'
 import styled from 'styled-components'
 import { useAuth } from '../lib/authentication'
-import useUser from '../hooks/useUser'
-import { useLocalState } from '../components/LocalState'
 import { gql, useQuery } from '@apollo/client'
 import { QUERY_CART } from '../graphql/queries'
 

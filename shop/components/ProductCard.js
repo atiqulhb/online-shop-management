@@ -3,6 +3,7 @@ import Link from 'next/link'
 import styled from 'styled-components'
 import { useAuth } from '../lib/authentication'
 import{ useLocalState } from '../components/LocalState'
+import Image from 'next/image'
 
 const ProductCardLayout = styled.div`
 	width: calc(20% - 50px);
@@ -46,12 +47,10 @@ const PriceTag = styled.div`
 	}
 `
 
-const Image = styled.div`
+const ImageWrapper = styled.div`
 	width: 100%;
 	height: 240px;
 	img {
-		width: 100%;
-		height: 100%;
 		object-fit: contain;
 	}
 `
@@ -69,7 +68,6 @@ const AddTOCartButton = styled.div`
 
 export default function ProductCard({ data }) {
 	const { user } = useAuth()
-	console.log(user, 'from product card')
 	const { addToCart, cartState, setCartState, SaveToLocalStorage } = useLocalState()
 	const { id, price, image } = data
 
@@ -94,9 +92,9 @@ export default function ProductCard({ data }) {
 					<PriceTag>
 						<span>৳{price}</span>
 					</PriceTag>
-					<Image>
-						<img src={image.publicUrl} alt=""/>
-					</Image>
+					<ImageWrapper>
+						<Image src={image.publicUrl} width="100%" height="100%" alt=""/>
+					</ImageWrapper>
 				</InnerWrapper>
 			</Link>
 			<AddTOCartButton onClick={handleAddingToCart}>ADD TO CART</AddTOCartButton>

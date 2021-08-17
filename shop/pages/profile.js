@@ -4,25 +4,16 @@ import { gql, useQuery, useMutation } from '@apollo/client';
 import styled from 'styled-components'
 import { useAuth } from '../lib/authentication'
 import Login from '../components/Login'
-// import TopBar from '../components/TopBar'
-import useUser from '../hooks/useUser'
 
 const USER_QUERY = gql`
 	query USER_QUERY($id: ID!){
 	  User(where: {
 	    id: $id
 	  }){
+	  	id
 	    name
 	    email
 	    
-	  }
-	}
-`
-
-const LOGOUT_MUTATION = gql`
-	mutation {
-	  unauthenticateUser {
-	    success
 	  }
 	}
 `
@@ -84,7 +75,7 @@ const WishListLayout = styled.div`
 export default function CustomerPanel(props) {
 	const { query: { id }} = useRouter()
 	const { user } = useAuth()
-	// const user = useUser()
+
 	console.log(user)
 	const [tab, setTab] = useState('profile')
 	if (!user) return (
@@ -103,7 +94,6 @@ export default function CustomerPanel(props) {
 				<span className={ tab == 'wishlist' ? 'active' : null } onClick={() => setTab('wishlist')}>Wish List</span>
 			</ProfilePageMenu>
 			{{
-	          // 'profile': <Profile id={user.id}/>,
 	          'profile': <Profile id={id}/>,
 	          'account-info-and-settings': <AccountInfoAndSettings/>,
 	          'transaction-history': <TransactionHistory />,
@@ -118,7 +108,6 @@ function Profile({ id }) {
 	const { data } = useQuery(USER_QUERY, { variables: { id } })
 	if(!data) return null
 	const { name, email } = data.User
-	// const [logout] = useMutation(LOGOUT_MUTATION)
 	
 	return (
 		<ProfileComponentLayout>
@@ -128,7 +117,6 @@ function Profile({ id }) {
 			<span>Address</span>
 			<button onClick={async () => {
 				await logout()
-				// console.log(res)
 			}}>logout</button>
 		</ProfileComponentLayout>
 	)

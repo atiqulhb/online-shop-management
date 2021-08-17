@@ -47,12 +47,12 @@ export default function Map() {
 
   const usableData = BikeRoutes.features[0].geometry
 
-  for(let i=0; i<usableData.coordinates.length; i++) {
-    setTimeout(() => {
-      setPointData({ type: usableData.type, coordinates: usableData.coordinates[i]})
-      console.log(usableData.coordinates[i])
-    }, 1000)
-  }
+  // for(let i=0; i<usableData.coordinates.length; i++) {
+  //   setTimeout(() => {
+  //     setPointData({ type: usableData.type, coordinates: usableData.coordinates[i]})
+  //     console.log(usableData.coordinates[i])
+  //   }, 1000)
+  // }
 
 
 const pointLayer = {

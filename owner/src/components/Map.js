@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import mapboxgl from 'mapbox-gl'
+import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-webpack-loader-syntax
 import 'mapbox-gl/dist/mapbox-gl.css'
 import styled from 'styled-components'
 
@@ -10,7 +10,10 @@ const MapContainer = styled.div`
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiYXRpcXVsaGIiLCJhIjoiY2tuZ2RjaGxmMDJ6ZDJvcGcxbG5vcXNyNiJ9.gQwP__qwBsaiHcpyyQ5OIA'
 
-export default function Map({ location, start }) {
+export default function Map({ currentLocation, start }) {
+
+
+
   let increment = 0.01
   let lineIncrement = 1
   let map
@@ -39,7 +42,7 @@ export default function Map({ location, start }) {
     map.addControl(nav, 'top-right');
 
     map.on('load', function() {
-      map.addSource('some id', {
+      map.addSource('point', {
 		type: 'geojson',
 		data: {
 			"type": "FeatureCollection",
@@ -69,18 +72,34 @@ export default function Map({ location, start }) {
 		// 	}
 		// }]
 	 //  })
+// 	console.log(currentLocation)
+// 
+
 
     // Clean up on unmount
     return () => map.remove();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    console.log(map)
-    // map.getSource("point").setData({
-    //   type: 'FeatureCollection',
-    //   features: location
-    // })
-  },[location])
+		if (currentLocation) {
+	    let { longitude, latitude } = currentLocation
+	  	console.log(longitude)
+	  	console.log(latitude)
+	    
+	    console.log(map)
+	    // map.getSource("point").setData({
+	    //   "type": "FeatureCollection",
+	    //   "features": [{
+					// 	"type": "Feature",
+					// 	"properties": {},
+					// 	"geometry": {
+					// 		"type": "Point",
+					// 		"coordinates": [ longitude, latitude ]
+					// 	}
+					// }]
+	    // })
+		}
+  },[currentLocation])
 
   return (
     <div>

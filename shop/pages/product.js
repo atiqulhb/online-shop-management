@@ -9,6 +9,7 @@ import TopBar from '../components/TopBar'
 import ScrollBarContainer from '../components/ScrollBarContainer'
 import NotificationMessage from '../components/NotificationMessage'
 import useHasScrollBar from '../hooks/useHasScrollBar'
+import Image from 'next/image'
 
 export const SomeDataInApolloLocalState = makeVar('some data')
 
@@ -39,8 +40,6 @@ const LargeImage = styled.div`
 	height: 100%;
 	float: left;
 	img {
-		width: 100%;
-		height: 100%;
 		object-fit: contain;
 	}
 `
@@ -105,7 +104,7 @@ export default function ProductPage(props) {
 		<ProductPageLayout>
 			<ScrollBarContainer>
 				<LargeImage>
-					<img src={image.publicUrl}/>
+					<Image src={image.publicUrl} width="100%" height="100%" alt=""/>
 				</LargeImage>
 				<DetailsSection>
 					<h1>{brand}</h1>

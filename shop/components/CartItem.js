@@ -6,6 +6,7 @@ import { useLocalState } from './LocalState'
 import { QUERY_CART } from '../graphql/queries'
 import { useAuth } from '../lib/authentication'
 import formatter from '../lib/formatter'
+import Image from 'next/image'
 
 const CHANGE_CART_ITEM_QUANTITY = gql`
   mutation CHANGE_CART_ITEM_QUANTITY($cartItemId: ID!, $newQuantity: Int!){
@@ -42,10 +43,9 @@ const CartItemLayout = styled.div`
 `
 
 const ImageContainer = styled.div`
-	flex: 1;
+	width: 50px;
+	height: 50px;
 	& > img {
-		width: 100%;
-		height: 100%;
 		object-fit: contain;
 	}
 `
@@ -112,7 +112,7 @@ export default function CartItem({ item, userId }) {
 	return (
 		<CartItemLayout>
 			<ImageContainer>
-				<img src={item.item?.image.publicUrl} alt=""/>
+				<Image src={item.item?.image.publicUrl} width={50} height={50} alt=""/>
 			</ImageContainer>
 			<TitlePriceAndQuantity>
 		 		<span>{item.item?.name.replace(/(.{25})..+/, "$1…")}</span>

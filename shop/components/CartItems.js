@@ -257,7 +257,7 @@ export default function CartItems({ userId, showCartInfo }) {
 		arrayOfQuantity = [],
 		i = 0
 
-	for(i; i<cartItemsInLocalStorage?.length; i++) {
+	for (i; i<cartItemsInLocalStorage?.length; i++) {
 		arrayOfCartItemsId[i] = cartItemsInLocalStorage[i].id
 		arrayOfQuantity[i] = cartItemsInLocalStorage[i].quantity
 	}
@@ -274,10 +274,10 @@ export default function CartItems({ userId, showCartInfo }) {
 					{ cartItemsInLocalStorage && cartItemsInLocalStorage[0] ? 
 						(
 						<>
-						<span>these items are from localstorage</span>
-						{cartItemsInLocalStorage?.map((cartItem,key) => (
-							<CartItemforLocalStorage key={key} item={cartItem}/>
-						))}
+							<span>these items are from localstorage</span>
+							{cartItemsInLocalStorage?.map((cartItem,key) => (
+								<CartItemforLocalStorage key={key} item={cartItem}/>
+							))}
 						</>
 					) : null }
 				</ScrollBarContainer>
