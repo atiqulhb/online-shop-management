@@ -50,9 +50,13 @@ const PriceTag = styled.div`
 const ImageWrapper = styled.div`
 	width: 100%;
 	height: 240px;
-	img {
+	position: relative;
+
+/*	img {
+		width: 100%;
+		height: 100%;
 		object-fit: contain;
-	}
+	}*/
 `
 
 const AddTOCartButton = styled.div`
@@ -93,7 +97,7 @@ export default function ProductCard({ data }) {
 						<span>৳{price}</span>
 					</PriceTag>
 					<ImageWrapper>
-						<Image src={image.publicUrl} width="100%" height="100%" alt=""/>
+						<Image src={image.publicUrl} width={240} height={240} objectFit="contain" alt=""/>
 					</ImageWrapper>
 				</InnerWrapper>
 			</Link>

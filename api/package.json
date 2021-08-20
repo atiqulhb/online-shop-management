@@ -39,5 +39,8 @@
     "otplib": "^12.0.1",
     "redis": "^3.1.2",
     "stripe": "^8.160.0"
+  },
+  "devDependencies": {
+    "yarn-audit-fix": "^6.4.2"
   }
 }

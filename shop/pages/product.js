@@ -104,7 +104,7 @@ export default function ProductPage(props) {
 		<ProductPageLayout>
 			<ScrollBarContainer>
 				<LargeImage>
-					<Image src={image.publicUrl} width="100%" height="100%" alt=""/>
+					<Image src={image.publicUrl} width={600} height={600} placeholder="blur" alt=""/>
 				</LargeImage>
 				<DetailsSection>
 					<h1>{brand}</h1>
