@@ -126,7 +126,8 @@ exports.User = {
     orders: { type: Relationship, ref: 'Order.orderer', many: true },
     messages: { type: Relationship, ref: 'Message', many: true },
     role: { type: Relationship, ref: 'Role.assignTo', many: true },
-    secret: { type: Text }
+    secret: { type: Text },
+    googleId: { type: Text }
     // plugins: [atTracking(), byTracking()],
   },
 }
@@ -168,11 +169,18 @@ exports.Cart = {
 //   },
 // };
 
+exports.HistoryOfAddingToCart = {
+  fields: {
+    date: { type: DateTime },
+    quantity: { type: Integer }
+  }
+}
 
 exports.CartItem = {
   fields: {
     cart: { type: Relationship, ref: 'Cart.cartItems', isRequired: true, many: false },
     item: { type: Relationship, ref: 'Product', isRequired: true },
+    history: { type: Relationship, ref: 'HistoryOfAddingToCart', many: true },
     quantity: { type: Integer, isRequired: true, defaultValue: 1},
   }
 }
@@ -1171,6 +1179,83 @@ exports.customSchema = {
           return { success: charge.status === 'succeeded' }
         }
       }
+    },
+//     {
+//       schema: 'syncCartInServerWithLocalstorage(cartItemsInLocalStorage: [CartItem]): SuccessMessage',
+//       resolver: async (_, args, context) => {
+// 
+//         console.log(args)
+// 
+//         return true
+//       },
+//     },
+    {
+      schema: 'removeItemsFromCartInServer: SuccessMessage',
+      resolver: async (_, __, context) => {
+
+        const { data, errors } = await context.executeGraphQL({
+          context: context.createContext({ skipAccessControl: true }),
+          query: `
+            query FIND_USER($authedUserId: ID!, $cartItems: [CartItem!]!){
+              updateUser(
+                id: $authedUserId
+                data: {
+                  cart: {
+                    cartItems: $cartItems
+                  }
+                }
+              ) {
+                id
+                cart {
+                  id
+                  cartItems {
+                    id
+                  }
+                }
+              }
+            }
+          `,
+          variables: { authedUserId: context.authedItem.id, cartItems: []},
+        })
+
+        console.log(data)
+
+        return { success: true }
+      },
+    },
+    {
+      schema: 'syncCartItems: SuccessMessage',
+      resolver: async (_, __, context) => {
+
+        const { data, errors } = await context.executeGraphQL({
+          context: context.createContext({ skipAccessControl: true }),
+          query: `
+            query FIND_USER($authedUserId: ID!, $cartItems: [CartItem!]!){
+              updateUser(
+                id: $authedUserId
+                data: {
+                  cart: {
+                    cartItems: $cartItems
+                  }
+                }
+              ) {
+                id
+                cart {
+                  id
+                  cartItems {
+                    id
+                  }
+                }
+              }
+            }
+          `,
+          variables: { authedUserId: context.authedItem.id, cartItems: []},
+        })
+
+        console.log(data)
+
+        return { success: true }
+      },
     },
   ],
   subscriptions: [

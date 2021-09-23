@@ -166,11 +166,9 @@ export default function TopBar() {
 				<Link href="/cart">
 					<Cart>
 						<span>cart</span>
-						{ user ? (
-							<SpaceForCartBadge>
-								<CartItemNumberBadge/>
-							</SpaceForCartBadge>
-						) : null }
+						<SpaceForCartBadge>
+							{/* <CartItemNumberBadge/> */}
+						</SpaceForCartBadge>
 					</Cart>
 				</Link>
 			</CartSection>

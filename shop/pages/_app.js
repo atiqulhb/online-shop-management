@@ -3,7 +3,7 @@ import { useApollo } from '../lib/apolloClient'
 import Layout from '../components/Layout'
 import { LocalState } from '../components/LocalState'
 import { AuthProvider } from '../lib/authentication'
-import PWAHeader from '../components/PWAHeader'
+// import PWAHeader from '../components/PWAHeader'
 
 export default function App({ Component, pageProps }) {
   const apolloClient = useApollo(pageProps)
@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }) {
     	<AuthProvider>
         <LocalState>
   				<Layout>
-            <PWAHeader/>
+            {/* <PWAHeader/> */}
       			<Component {...pageProps} />
           </Layout>
         </LocalState>

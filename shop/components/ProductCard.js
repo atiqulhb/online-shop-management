@@ -72,17 +72,24 @@ const AddTOCartButton = styled.div`
 
 export default function ProductCard({ data }) {
 	const { user } = useAuth()
-	const { addToCart, cartState, setCartState, SaveToLocalStorage } = useLocalState()
-	const { id, price, image } = data
+	const { addToCart, cartState, setCartState, SaveToLocalStorage, AddToCart2 } = useLocalState()
+	const { id, name, price, image } = data
 
 	async function handleAddingToCart() {
-		if (user) {
-			const res = await addToCart({ variables: { productId: id, quantity: 1, userId: user.id } })
-			console.log(res)
-		} else {
-			SaveToLocalStorage({...data, quantity: 1})
-		}
-
+// 		if (user) {
+// 			const res = await addToCart({ variables: { productId: id, quantity: 1, userId: user.id } })
+// 			console.log(res)
+// 		} else {
+// 			SaveToLocalStorage({...data, quantity: 1})
+// 		}
+// 
+// 		if (cartState.initial) {
+// 			setCartState({...cartState, comeIn: true})
+// 		} else {
+// 			setCartState({...cartState, initial: true})
+// 		}
+		AddToCart2({ id, name, image, price, history: [{ date: new Date().toISOString(), quantity: 1 }] })
+		
 		if (cartState.initial) {
 			setCartState({...cartState, comeIn: true})
 		} else {

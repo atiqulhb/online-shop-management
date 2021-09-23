@@ -12,6 +12,7 @@ import { cartItemNumer } from '../components/LocalStateManagementWithApolloClien
 import { QUERY_CART } from '../graphql/queries'
 import Link from 'next/link'
 import formatter from '../lib/formatter'
+import useUser from '../hooks/useUser'
 
 const REMOVE_CART_ITEMS = gql`
 	mutation REMOVE_CART_ITEMS($ids: [ID!]!){
@@ -185,6 +186,7 @@ const Buttons = styled.div`
 `
 
 export default function CartItems({ userId, showCartInfo }) {
+	const user = useUser()
 	const { setCartOpen, setCartItemNumber, addToCart, setCartInfo, cartState, setCartState } = useLocalState()
 	  
 
@@ -234,73 +236,134 @@ export default function CartItems({ userId, showCartInfo }) {
 		}
 	}
 
-	const { data, refetch } = useQuery(QUERY_CART, { variables: { id: userId }})
-	if (!data) return <p>No items</p>
-
-	const cartId = data?.User.cart?.id
-
-	const cartItems = data?.User.cart?.cartItems
-	
-	const totalItems = data?.User.cart?._cartItemsMeta.count
-
-	let totalAmounts = 0,
-		j = 0
-
-	for (j; j<cartItems?.length; j++) {
-		totalAmounts += cartItems[j]?.item?.price * cartItems[j]?.quantity
-	}
-
-	const cartItemsInLocalStorage = getCartItemsFromLocalStorage()
-
-	let variables = [],
-		arrayOfCartItemsId = [],
-		arrayOfQuantity = [],
-		i = 0
-
-	for (i; i<cartItemsInLocalStorage?.length; i++) {
-		arrayOfCartItemsId[i] = cartItemsInLocalStorage[i].id
-		arrayOfQuantity[i] = cartItemsInLocalStorage[i].quantity
-	}
+	// const { data, refetch } = useQuery(QUERY_CART, { variables: { id: userId }})
+	// if (!data) return <p>No items</p>
+// 
+// 	const cartId = data?.User.cart?.id
+// 
+// 	const cartItems = data?.User.cart?.cartItems
+// 	
+// 	const totalItems = data?.User.cart?._cartItemsMeta.count
+// 
+// 	let totalAmounts = 0,
+// 		j = 0
+// 
+// 	for (j; j<cartItems?.length; j++) {
+// 		totalAmounts += cartItems[j]?.item?.price * cartItems[j]?.quantity
+// 	}
+// 
+// 	const cartItemsInLocalStorage = getCartItemsFromLocalStorage()
+// 
+// 	let variables = [],
+// 		arrayOfCartItemsId = [],
+// 		arrayOfQuantity = [],
+// 		i = 0
+// 
+// 	for (i; i<cartItemsInLocalStorage?.length; i++) {
+// 		arrayOfCartItemsId[i] = cartItemsInLocalStorage[i].id
+// 		arrayOfQuantity[i] = cartItemsInLocalStorage[i].quantity
+// 	}
 
 	return (
 		<CartComponentWrapper>
 			<CartItemsWrapper>
 				<ScrollBarContainer childrenStyle={{padding: '12px'}}>
 
-					{cartItems?.map((cartItem,key) => (
-						<CartItem key={key} item={cartItem} userId={userId}/>
-					))}
+	{/* 				{ */}
+	{/* 					user ? cartItems?.map((cartItem,key) => ( */}
+	{/* 						<CartItem key={key} item={cartItem} userId={user?.id}/> */}
+	{/* 					)) */}
+	{/* 					: <CartItemsFromLocalStorage/> */}
+	{/* 					// cartItemsInLocalStorage && cartItemsInLocalStorage[0] ? */}
+	{/* 						// cartItemsInLocalStorage?.map((cartItem,key) => ( */}
+	{/* 						// 	<CartItemforLocalStorage key={key} item={cartItem}/> */}
+	{/* 						// )) */}
+	{/* 						// )) : null */}
+	{/*  */}
+	{/* 				} */}
+					{/* { user ? <CartItemsFromServer/> : <CartItemsFromLocalStorage/> } */}
+
+					<CartItemsFromServer/>
+					<CartItemsFromLocalStorage/>
+
 					
-					{ cartItemsInLocalStorage && cartItemsInLocalStorage[0] ? 
-						(
-						<>
-							<span>these items are from localstorage</span>
-							{cartItemsInLocalStorage?.map((cartItem,key) => (
-								<CartItemforLocalStorage key={key} item={cartItem}/>
-							))}
-						</>
-					) : null }
+					
+					{/* { cartItemsInLocalStorage && cartItemsInLocalStorage[0] ?  */}
+					{/* 	( */}
+					{/* 	<> */}
+					{/* 		<span>these items are from localstorage</span> */}
+					{/* 		{cartItemsInLocalStorage?.map((cartItem,key) => ( */}
+					{/* 			<CartItemforLocalStorage key={key} item={cartItem}/> */}
+					{/* 		))} */}
+					{/* 	</> */}
+					{/* ) : null } */}
 				</ScrollBarContainer>
 			</CartItemsWrapper>
-			{ showCartInfo ? (
-				<CartInfoContainer>
-					<div>
-						<TotalItems>{totalItems} items</TotalItems>
-					</div>
-					<div>
-						<TotalAmout>{ formatter.format(totalAmounts).replace(/\D00(?=\D*$)/, '') }</TotalAmout>
-					</div>
-					<div>
-						<Order onClick={ async () => {
-							const res = await order({ variables: { cartId, timeStamp: new Date(), ordererId: userId, totalItems, totalAmounts }})
-							console.log(res)
-						}}>order</Order>
-						{/* <Link href="/checkout" onClick={() => setCartState({ ...cartState, comeIn: false })}> */}
-						{/* 	<Order>Order</Order> */}
-						{/* </Link> */}
-					</div>
-				</CartInfoContainer>
-			) : null }
+			{/* { showCartInfo ? ( */}
+			{/* 	<CartInfoContainer> */}
+			{/* 		<div> */}
+			{/* 			<TotalItems>{totalItems} items</TotalItems> */}
+			{/* 		</div> */}
+			{/* 		<div> */}
+			{/* 			<TotalAmout>{ formatter.format(totalAmounts).replace(/\D00(?=\D*$)/, '') }</TotalAmout> */}
+			{/* 		</div> */}
+			{/* 		<div> */}
+			{/* 			<Order onClick={ async () => { */}
+			{/* 				const res = await order({ variables: { cartId, timeStamp: new Date(), ordererId: user.id, totalItems, totalAmounts }}) */}
+			{/* 				console.log(res) */}
+			{/* 			}}>order</Order> */}
+			{/* 			{/* <Link href="/checkout" onClick={() => setCartState({ ...cartState, comeIn: false })}> */}
+			{/* 			{/* 	<Order>Order</Order> */}
+			{/* 			{/* </Link> */}
+			{/* 		</div> */}
+			{/* 	</CartInfoContainer> */}
+			{/* ) : null } */}
 		</CartComponentWrapper>
+	)
+}
+
+function CartItemsFromLocalStorage() {
+	const user = useUser()
+	const { addToCart } = useLocalState()
+
+	const [cartItemsInLS, setCartItemsInLS] = useState([])
+
+	useEffect(() => {
+		const cartItemsInLocalStorage_serialized = localStorage.getItem('ecomm-cart')
+		const cartItemsInLocalStorage = JSON.parse(cartItemsInLocalStorage_serialized)
+
+		console.log(cartItemsInLocalStorage)
+
+		// if (user) {
+		// 	async function AddItemsToServer() {
+		// 		const res = await addToCart({ variables: { productId: id, quantity: 1, userId: user.id } })
+		// 		console.log(res)
+		// 	}
+		// } else {
+		// 	setCartItemsInLS(cartItemsInLocalStorage_deserialized)
+		// }
+	},[user])
+
+	return (
+		<>
+			<p>these are from localstorage</p>
+			{ cartItemsInLS?.map((cartItem,key) => (
+				<CartItemforLocalStorage key={key} item={cartItem}/>
+			))}
+		</>
+	)
+}
+
+function CartItemsFromServer() {
+	const user = useUser()
+	const { data, refetch } = useQuery(QUERY_CART, { variables: { id: user?.id }})
+	if (!data) return <p>no items from server</p>
+	const cartItems = data?.User.cart?.cartItems
+	return (
+		<>
+			{ cartItems?.map((cartItem,key) => (
+				<CartItem key={key} item={cartItem} userId={user?.id}/>
+			))}
+		</>
 	)
 }

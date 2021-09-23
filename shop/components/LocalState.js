@@ -52,6 +52,7 @@ function LocalState({ children }) {
     message: undefined
   })
   const [reloadCartForLocalStorage, setReloadCartForLocalStorage] = useState(0)
+  const [reloadCartItemBadgeNumber, setReloadCartItemBadgeNumber] = useState(0)
 
   const [cartState, setCartState] = useState({
     initial: false,
@@ -71,6 +72,31 @@ function LocalState({ children }) {
   const [topBarInfo, setTopBarInfo] = useState({
     height: 0,    
   })
+
+  useEffect(() => {
+    if (navigator.sendBeacon) {
+      console.log('Beacon Api supported')
+    } else {
+      console.log('Beacon Api not supported')
+    }
+    if (user) {
+      console.log(user)
+      const cartItemsInLocalStorage_serialized = localStorage.getItem('osm-cart')
+      const cartItemsInLocalStorage = JSON.parse(cartItemsInLocalStorage_serialized)
+
+      // console.log(cartItemsInLocalStorage)
+
+      let cartItemsInServer = [],
+          i = 0
+
+      for (i;i<user.cart.cartItems.length;i++) {
+        let cartItemInServer = { ...user.cart.cartItems[i].item, quantity: user.cart.cartItems[i].quantity }
+        cartItemsInServer.push(cartItemInServer)
+      }
+
+
+    }
+  },[user])
 
   function SaveToLocalStorage(item) {
     if (typeof window !== 'undefined') {
@@ -109,6 +135,36 @@ function LocalState({ children }) {
     refetchQueries: [ { query: QUERY_CART, variables: { id: user?.id } }]
   })
 
+  function AddToCart2(item) {
+    if (typeof window !== 'undefined') {
+      const ItemsInCart = localStorage.getItem('osm-cart')
+      if (ItemsInCart == null) {
+        let ItemsInCart = []
+        ItemsInCart.push(item)
+        const ItemsInCart_serialized = JSON.stringify(ItemsInCart)
+        localStorage.setItem('osm-cart', ItemsInCart_serialized)
+        console.log('added to cart')
+      }
+      else {
+        const ItemsInCart_deserialized = JSON.parse(ItemsInCart)
+        const ItemInCart = ItemsInCart_deserialized.find(c => c.id === item.id);
+        if (ItemInCart) {
+          const index = ItemsInCart_deserialized.indexOf(ItemInCart)
+          if (index >= 0) { ItemsInCart_deserialized.splice(index, 1)}
+          let newHistory = ItemInCart.history.concat(item.history)
+          ItemInCart.history = newHistory
+          ItemsInCart_deserialized.push(ItemInCart)
+        }
+        else {
+          ItemsInCart_deserialized.push(item)
+        }
+        const ItemsInCart_serialized = JSON.stringify(ItemsInCart_deserialized)
+        localStorage.setItem('osm-cart', ItemsInCart_serialized)
+      }
+      setReloadCartComponent(Math.random())
+    }
+  }
+
   
 
   return (
@@ -138,7 +194,10 @@ function LocalState({ children }) {
       cartInfo,
       setCartInfo,
       topBarInfo,
-      setTopBarInfo
+      setTopBarInfo,
+      AddToCart2,
+      reloadCartItemBadgeNumber,
+      setReloadCartItemBadgeNumber
      }}>
       {children}
     </LocalStateProvider>

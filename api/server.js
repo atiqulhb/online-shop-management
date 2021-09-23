@@ -5,7 +5,6 @@ const {keystone, apps} = require('./index.js');
 const {initSubscriptionServer} = require("./lib/utils");
 const cors = require('cors')
 
-const whitelist = ['http://localhost:5000', 'http://localhost:33785']
 
 keystone
     .prepare({
@@ -23,7 +22,7 @@ keystone
         }
 
         app.use(cors({
-            origin: true,
+            origin: [process.env.SHOP_ADDRESS, process.env.OWNER_ADDRESS],
             credentials: true
         }))
 
@@ -33,22 +32,6 @@ keystone
           resave: false,
           saveUninitialized: false,
         }))
-
-        // app.use(cors({
-        //   origin: ['http://localhost:5000', 'http://localhost:33785'],
-        //   credentials: true
-        // }))
-
-        // app.use(cors({
-        //   origin: function (origin, callback) {
-        //     if (whitelist.indexOf(origin) !== -1) {
-        //       callback(null, true)
-        //     } else {
-        //       callback(new Error('Not allowed by CORS'))
-        //     }
-        //   },
-        //   credentials: true
-        // }))
 
         app.use(middlewares)
 

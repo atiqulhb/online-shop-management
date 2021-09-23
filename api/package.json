@@ -21,6 +21,7 @@
     "@keystonejs/app-admin-ui": "^7.3.8",
     "@keystonejs/app-graphql": "^6.2.0",
     "@keystonejs/app-static": "^5.2.1",
+    "@keystonejs/auth-passport": "^6.1.2",
     "@keystonejs/auth-password": "^6.0.0",
     "@keystonejs/email": "^5.2.0",
     "@keystonejs/file-adapters": "^7.1.1",

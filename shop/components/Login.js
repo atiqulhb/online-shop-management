@@ -65,6 +65,17 @@ const StyledForm = styled.form`
 	flex-direction: column;
 `
 
+const Button = styled.button`
+	padding: 10px 20px;
+	border-radius: 50px;
+	cursor: pointer;
+	background-color: #fff;
+	border: 1px solid black;
+	&:focus {
+		outline: none;
+	}
+`
+
 export default function Account() {
 	const router = useRouter()
 
@@ -85,13 +96,16 @@ export default function Account() {
 	}
 	return (
 		<AccountPageLayout>
+			<Link href="http://localhost:8800/auth/google">
+				<Button>Login with Google</Button>
+			</Link>
 			<h1>Login</h1>
 			<StyledForm
 				onSubmit={async e => {
 			        e.preventDefault();
 			        const res = await login({ variables });
 			        // const res = await login2({ variables });
-			        console.log(res)
+			        // console.log(res)
 			        
 				}}
 			>

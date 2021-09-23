@@ -92,5 +92,8 @@
         ]
       }
     }
+  },
+  "devDependencies": {
+    "@next/bundle-analyzer": "^11.1.2"
   }
 }

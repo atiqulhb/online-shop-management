@@ -74,7 +74,6 @@ const AddNumberOfProduct = styled.div`
 		&:first-child, &:last-child {
 			cursor: pointer;
 		}
-
 	}
 `
 
@@ -96,10 +95,21 @@ export default function ProductPage(props) {
 	const hasScrollBar = useHasScrollBar()
 	// console.log(hasScrollBar)
 	const { data, error, loading } = useQuery(SINGLE_PRODUCT_QUERY, { variables: { id }})
-	const { SaveToLocalStorage, cartState, setCartState, setNotification, addToCart } = useLocalState()
+	const { SaveToLocalStorage, cartState, setCartState, setNotification, addToCart, AddToCart2 } = useLocalState()
 	const [numberOfItem, setNumberOfItem] = useState(1)
 	if (!data) return null
 	const { id: productId, name, image, brand, weight, price, details } = data.Product
+
+	function handleAddingToCart() {
+		AddToCart2({ id: productId, name, image, price, history: [{ date: new Date().toISOString(), quantity: numberOfItem }] })
+		
+		if (cartState.initial) {
+			setCartState({...cartState, comeIn: true})
+		} else {
+			setCartState({...cartState, initial: true})
+		}
+	}
+
 	return (
 		<ProductPageLayout>
 			<ScrollBarContainer>
@@ -119,22 +129,7 @@ export default function ProductPage(props) {
 						<div>{numberOfItem}</div>
 						<div onClick={() => { setNumberOfItem(numberOfItem+1) }}>+</div>
 					</AddNumberOfProduct>
-					<AddToCartWrapper
-						onClick={ async () => {
-							console.log(user, 'user from product.js')
-							if(user) {
-								const res = await addToCart({ variables: { productId, quantity: numberOfItem, userId: user.id } })
-								console.log(res, 'from product.js')
-							} else {
-								SaveToLocalStorage({...data.Product, quantity: numberOfItem})
-							}
-							if (cartState.initial) {
-								setCartState({...cartState, comeIn: true})
-							} else {
-								setCartState({...cartState, initial: true})
-							}
-						}}
-					>Add To Cart</AddToCartWrapper>
+					<AddToCartWrapper onClick={handleAddingToCart}>Add To Cart</AddToCartWrapper>
 				</DetailsSection>
 			</ScrollBarContainer>
 		</ProductPageLayout>

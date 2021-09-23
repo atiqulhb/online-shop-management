@@ -20,6 +20,22 @@ const userFragment = `
   id
   name
   email
+  cart {
+    id
+    cartItems {
+      id
+      item {
+        id
+        name
+        price
+        image {
+          id
+          publicUrl
+        }
+      }
+      quantity
+    }
+  }
 `;
 
 // const ADD_USER = gql`

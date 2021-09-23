@@ -8,6 +8,7 @@ import CartItems from '../components/CartItems'
 import { useAuth } from '../lib/authentication'
 import Login from '../components/Login'
 import ScrollBar from '../components/ScrollBarContainer'
+import Payment from '../components/Payment'
 
 const ORDER = gql`
 	mutation ORDER($date: DateTime, $ordererId: ID!, $totalItems: Int, $totalAmounts: Float){
@@ -46,11 +47,11 @@ const CartContainer = styled.div`
 	height: 100%;
 	/*background-color: yellow;*/
 	display: flex;
-	flex-direction: column;
+	/*flex-direction: column;*/
 `
 
 const CartItemsContainer = styled.div`
-	flex: auto;
+	flex: 1;
 	overflow-y: auto;
 `
 
@@ -164,6 +165,12 @@ const Order = styled.div`
 	cursor: pointer;
 `
 
+const PaymentSection = styled.div`
+	flex: 1;
+	box-shadow: -15px 0px 15px -15px rgba(0,0,0,.3);
+	
+`
+
 export default function CartPage() {
 	const { user } = useAuth()
 	const { reloadShoppingCart, setReloadShoppingCart } = useLocalState()
@@ -242,6 +249,9 @@ export default function CartPage() {
 					<CartItemsContainer>
 							<CartItems userId={user.id}/>
 					</CartItemsContainer>
+					<PaymentSection>
+						<Payment/>
+					</PaymentSection>
 				</>
 			)}
 		</CartContainer>
