@@ -48,11 +48,11 @@ export default function BottomNavigator() {
 	const { scrollingTo } = useLocalState()
 	return (
 		<BottomNavigatorLayout style={scrollingTo ? { transform: 'translateY(100%)' } : { transform: 'translateY(0%)' }}>
-			<Link href='/'>
+			<Link href='/' passHref>
 				<span><AiOutlineHome/></span>
 			</Link>
 			<AiOutlineSearch/>
-			<Link href='/cart'>
+			<Link href='/cart' passHref>
 				<Cart>
 					<BiCart/>
 					{ isAuthenticated ? (
@@ -63,7 +63,7 @@ export default function BottomNavigator() {
 				</Cart>
 			</Link>
 			<AiOutlineHeart/>
-			<Link href='/profile'>
+			<Link href='/profile' passHref>
 				<span><CgProfile/></span>
 			</Link>
 		</BottomNavigatorLayout>

@@ -10,6 +10,6 @@ const LinkSpan = styled.span`
 export default function NotificationMessage({ textBeforeLink, pageLink, linkText, textAfterLink }) {
 	const { notification, setNotification } = useLocalState()
 	return (
-		<span><span>{textBeforeLink}</span> <Link href={pageLink}><LinkSpan onClick={() => setNotification({...notification, open: false })}>{linkText}</LinkSpan></Link> <span>{textAfterLink}</span></span>
+		<span><span>{textBeforeLink}</span> <Link href={pageLink} passHref><LinkSpan onClick={() => setNotification({...notification, open: false })}>{linkText}</LinkSpan></Link> <span>{textAfterLink}</span></span>
 	)
 }

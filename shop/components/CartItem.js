@@ -101,7 +101,7 @@ export default function CartItem({ item, userId }) {
 	const [changeCartItemQuantity] = useMutation(CHANGE_CART_ITEM_QUANTITY, { refetchQueries: [ { query: QUERY_CART, variables: { id: user.id } }] })
 	useEffect(() => {
 		item && setItemNumber(item.quantity)
-	},[item.quantity])
+	},[item])
 	
 	async function handleChange() {
 		console.log('cartItem', item)

@@ -87,7 +87,7 @@ export default function Account() {
 				<>
 					<Login/>
 					<span>No account? <span onClick={() => setCreateAccount(true)}>Create An Account</span></span>
- 					<span>Forgot Password?  <Link href="/forget-password"><span>Click here</span></Link></span>
+ 					<span>Forgot Password?  <Link href="/forget-password" passHref><span>Click here</span></Link></span>
 				</>
 			)}
 			

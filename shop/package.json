@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "next dev -p 5500",
     "build": "next build",
-    "start": "next start -p 5500"
+    "start": "next start -p 5500",
+    "lint": "next lint"
   },
   "keywords": [],
   "author": "",
@@ -27,12 +28,12 @@
     "gsap": "^3.6.0",
     "lodash": "^4.17.21",
     "net": "^1.0.2",
-    "next": "^10.0.6",
+    "next": "^11.1.2",
     "next-pwa": "^5.2.21",
     "next-with-apollo": "^5.1.1",
-    "react": "^17.0.1",
+    "react": "^17.0.2",
     "react-browser-hooks": "^2.2.4",
-    "react-dom": "^17.0.1",
+    "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",
     "react-spring": "^8.0.27",
     "sharp": "^0.28.3",
@@ -94,6 +95,8 @@
     }
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "^11.1.2"
+    "@next/bundle-analyzer": "^11.1.2",
+    "eslint": "7.32.0",
+    "eslint-config-next": "11.1.2"
   }
 }

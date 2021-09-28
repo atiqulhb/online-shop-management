@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { BsFillTrashFill } from 'react-icons/bs'
 import { useLocalState } from './LocalState'
+import Image from 'next/image'
 
 
 const CartItemforLocalStorageLayout = styled.div`
@@ -141,7 +142,7 @@ export default function CartItemforLocalStorage({ item, callForReload }) {
 	return (
 		<CartItemforLocalStorageLayout>
 			<ImageContainer>
-				<img src={item.image.publicUrl} alt=""/>
+				<Image src={item.image.publicUrl} width={30} height={30} objectFit="contain" alt=""/>
 			</ImageContainer>
 			<TitlePriceAndQuantity>
 		 		<span>{item.name.replace(/(.{25})..+/, "$1…")}</span>

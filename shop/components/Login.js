@@ -96,7 +96,7 @@ export default function Account() {
 	}
 	return (
 		<AccountPageLayout>
-			<Link href="http://localhost:8800/auth/google">
+			<Link href="http://localhost:8800/auth/google" passHref>
 				<Button>Login with Google</Button>
 			</Link>
 			<h1>Login</h1>

@@ -61,7 +61,7 @@ export default function TopBar() {
 					}
 				}}/>
 			</Menu>
-			<Link href={{ pathname: '/' }}>
+			<Link href={{ pathname: '/' }} passHref>
 				<Logo src="/ecomm-icon.svg" height="20px"/>
 			</Link>
 			<ToggleFullScreen onClick={toggle}>

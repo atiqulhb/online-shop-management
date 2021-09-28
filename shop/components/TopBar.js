@@ -116,7 +116,7 @@ export default function TopBar() {
 	useEffect(() => {
 		const TopBarHeight = TopBarRef.current.clientHeight
 		setTopBarInfo({...topBarInfo, height: TopBarHeight})
-	},[])
+	},[topBarInfo,setTopBarInfo])
 	// console.log(isLoading)
 	const { toggle, fullScreen } = useFullScreen()
 	// const { user } = useUser()
@@ -137,7 +137,7 @@ export default function TopBar() {
 				}}/>
 			</Menu>
 			<Home>
-				<Link href={{ pathname: '/' }}>
+				<Link href={{ pathname: '/' }} passHref>
 					<span>Home</span>
 				</Link>
 			</Home>
@@ -145,13 +145,13 @@ export default function TopBar() {
 				{(() => {
 					if (user) {
 						return (
-							<Link href={{ pathname: '/profile', query: { id: user.id }}}>
+							<Link href={{ pathname: '/profile', query: { id: user.id }}} passHref>
 					        	<span>{user.name}</span>
 					        </Link>
 						)
 					} else {
 						return  (
-							<Link href={{ pathname: `/account`}}>
+							<Link href={{ pathname: `/account`}} passHref>
 					        	<span>login</span>
 					        </Link>
 						)
@@ -163,7 +163,7 @@ export default function TopBar() {
 				<Search/>
 			</SearchBar>
 			<CartSection>
-				<Link href="/cart">
+				<Link href="/cart" passHref>
 					<Cart>
 						<span>cart</span>
 						<SpaceForCartBadge>

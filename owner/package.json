@@ -53,5 +53,9 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3"
+  },
+  "resolutions": {
+    "browserslist": ">=4.16.5",
+    "glob-parent": ">=5.1.2"
   }
 }

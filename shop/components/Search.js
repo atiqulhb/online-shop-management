@@ -102,7 +102,7 @@ export default function Search() {
 			}
 		}
 		
-	},[SearchedProducts])
+	},[SearchedProducts,searchInput])
 	
 	return (
 		<SearchWrapper>
@@ -110,7 +110,7 @@ export default function Search() {
 			{showFoundedProductList ? (
 				<FoundedProducts>
 					{searchInput !== '' ? data?.allProducts.map(product => (
-						<Link href={{ pathname: '/product', query: { id: product.id }}} key={product.id}>
+						<Link href={{ pathname: '/product', query: { id: product.id }}} key={product.id} passHref>
 							<li>{product.name}</li>
 						</Link>
 					)) : null}

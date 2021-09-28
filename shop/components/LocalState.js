@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, useLayoutEffect, useEffect } from 'react'
+import { createContext, useState, useContext, useLayoutEffect, useEffect, memo } from 'react'
 import { gql, useMutation, useQuery, useApolloClient } from '@apollo/client'
 import { useAuth } from '../lib/authentication'
 import { QUERY_CART } from '../graphql/queries'

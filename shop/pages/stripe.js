@@ -154,7 +154,7 @@ function useResponsiveFontSize() {
     return () => {
       window.removeEventListener("resize", onResize);
     };
-  });
+  },[]);
 
   return fontSize;
 }

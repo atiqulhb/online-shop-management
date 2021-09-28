@@ -7,7 +7,7 @@
 // import Meta from '../components/Meta';
 // import { gridSize } from '../theme';
 
-import ForgotPassword from '../components/forgotPassword';
+import ForgotPassword from '../components/ForgotPassword';
 
 export default function ForgotPasswordPage() {
   return (

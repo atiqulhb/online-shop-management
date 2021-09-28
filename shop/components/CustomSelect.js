@@ -58,6 +58,7 @@ export default function CustomSelect({ style, options, header, onSelect, name })
 		header: header,
 		name: name,
 	})
+	
 	useEffect(() => {
 		if(header) {
 			setCustomSelectConfig({...customSelectConfig, header: header, value: undefined})
@@ -68,10 +69,12 @@ export default function CustomSelect({ style, options, header, onSelect, name })
 				setCustomSelectConfig({...customSelectConfig, header: option, value: option })
 			}
 		}
-	},[])
+	},[customSelectConfig,header,options])
+
 	useEffect(() => {
 		onSelect && onSelect({ name: name, value: customSelectConfig.value})
-	},[customSelectConfig.value])
+	},[customSelectConfig.value,name,onSelect])
+
 	return (
 		<CustomSelectWrapper style={style}>
 		{options && options[0] && options[0].option && options[0].value ? (

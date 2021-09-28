@@ -239,12 +239,12 @@ export default function Cart() {
 
 		setReloadCartItemBadgeNumber(Math.random())
 
-		if (user) {
-			const res = getCartItemsFromServer({ variables: { id: user.id }})
-			console.log(res)
-		}
+		// if (user) {
+		// 	const res = getCartItemsFromServer({ variables: { id: user.id }})
+		// 	console.log(res)
+		// }
 
-	},[reloadCartComponent,reloadingCartFromInside, user])
+	},[reloadCartComponent,reloadingCartFromInside,setReloadCartItemBadgeNumber])
 
 	const [removeFromCart] = useMutation(REMOVE_FROM_CART)
 	const [clearCart] = useMutation(REMOVE_CART_ITEMS_FROM_SERVER)
@@ -289,25 +289,25 @@ export default function Cart() {
 				<CartItems2>
 					{cartInfos.items?.map((cartItem,key) => (
 						<CartItem3 key={key} item={cartItem} callForReload={call => setReloadingCartFromInside(call)}/>
-						))}
+					))}
 				</CartItems2>
-				{/* <OrderSection> */}
-				{/* 	<div> */}
-				{/* 		<TotalItems>{cartInfos.totalItems} item{cartInfos.totalItems > 1 ? 's' : null}</TotalItems> */}
-				{/* 	</div> */}
-				{/* 	<div> */}
-				{/* 		<TotalAmout>{ formatter.format(cartInfos.totalAmounts).replace(/\D00(?=\D*$)/, '') }</TotalAmout> */}
-				{/* 	</div> */}
-				{/* 	<div> */}
-				{/* 		{/* <Order onClick={ async () => { */} */}
-				{/* 		{/* 	const res = await order({ variables: { cartId, timeStamp: new Date(), ordererId: user.id, totalItems, totalAmounts }}) */} */}
-				{/* 		{/* 	console.log(res) */} */}
-				{/* 		{/* }}>order</Order> */} */}
-				{/* 		<Link href="/checkout" onClick={() => setCartState({ ...cartState, comeIn: false })}> */}
-				{/* 			<Order>Order</Order> */}
-				{/* 		</Link> */}
-				{/* 	</div> */}
-				{/* </OrderSection> */}
+				<OrderSection>
+					<div>
+						<TotalItems>{cartInfos.totalItems} item{cartInfos.totalItems > 1 ? 's' : null}</TotalItems>
+					</div>
+					<div>
+						<TotalAmout>{ formatter.format(cartInfos.totalAmounts).replace(/\D00(?=\D*$)/, '') }</TotalAmout>
+					</div>
+					<div>
+						{/* <Order onClick={ async () => { */}
+						{/*  	const res = await order({ variables: { cartId, timeStamp: new Date(), ordererId: user.id, totalItems, totalAmounts }}) */}
+						{/*  	console.log(res) */}
+						{/*  }}>order</Order> */}
+						<Link href="/checkout" onClick={() => setCartState({ ...cartState, comeIn: false })} passHref>
+							<Order>Order</Order>
+						</Link>
+					</div>
+				</OrderSection>
 
 		</CartWrapper>
 	)

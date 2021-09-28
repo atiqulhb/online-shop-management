@@ -49,7 +49,7 @@ const ForgotPassword = ({ onSuccess, onClickSignin }) => {
   return (
     <>
       {mutationError && (
-        <p>There is no account with the email "{email}"</p>
+        <p>There is no account with the email &ldquo;{email}&rdquo;</p>
       )}
 
       <form

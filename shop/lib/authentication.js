@@ -16,26 +16,32 @@ export const AuthContext = createContext();
  */
 export const useAuth = () => useContext(AuthContext);
 
+// const userFragment = `
+//   id
+//   name
+//   email
+//   cart {
+//     id
+//     cartItems {
+//       id
+//       item {
+//         id
+//         name
+//         price
+//         image {
+//           id
+//           publicUrl
+//         }
+//       }
+//       quantity
+//     }
+//   }
+// `;
+
 const userFragment = `
   id
   name
   email
-  cart {
-    id
-    cartItems {
-      id
-      item {
-        id
-        name
-        price
-        image {
-          id
-          publicUrl
-        }
-      }
-      quantity
-    }
-  }
 `;
 
 // const ADD_USER = gql`
@@ -98,7 +104,7 @@ const UNAUTH_MUTATION = gql`
   }
 `;
 
-/**
+/*
  * AuthProvider
  * ------------
  * AuthProvider is a component which keeps track of the user's
@@ -108,20 +114,6 @@ export const AuthProvider = ({ children, initialUserValue }) => {
   const [user, setUser] = useState(initialUserValue);
   const client = useApolloClient();
   const router = useRouter()
-
-  useEffect(() => {
-    getAuthedUser()
-  },[])
-
-  const [createUser, { data: addedUserData, loading, error: errorOnAddingUser }] = useMutation(ADD_USER, {
-    onCompleted: async ({ createUser }) => {
-      if (errorOnAddingUser) {
-        throw errorOnAddingUser
-      }
-      await setUser(createUser)
-      router.push({ pathname: '/profile', query: { id: createUser.id }})
-    }
-  })
 
   const [getAuthedUser, { data: userData, loading: userLoading }] = useLazyQuery(USER_QUERY, {
     fetchPolicy: 'no-cache',
@@ -133,6 +125,20 @@ export const AuthProvider = ({ children, initialUserValue }) => {
     },
     onError: console.error,
   });
+
+  useEffect(() => {
+    getAuthedUser()
+  },[getAuthedUser])
+
+  const [createUser, { data: addedUserData, loading, error: errorOnAddingUser }] = useMutation(ADD_USER, {
+    onCompleted: async ({ createUser }) => {
+      if (errorOnAddingUser) {
+        throw errorOnAddingUser
+      }
+      await setUser(createUser)
+      router.push({ pathname: '/profile', query: { id: createUser.id }})
+    }
+  })
 
   const [login, { data, loading: authLoading }] = useMutation(AUTH_MUTATION, {
     onCompleted: async ({ authenticateUserWithPassword: { item } = {}, error }) => {

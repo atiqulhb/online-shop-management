@@ -90,7 +90,6 @@ keystone.createAuthStrategy({
     }
 })
 
-
 const apps = [
 	new GraphQLApp({
 		apiPath: '/graphql',

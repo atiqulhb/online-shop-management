@@ -51,6 +51,8 @@ const ImageWrapper = styled.div`
 	width: 100%;
 	height: 240px;
 	position: relative;
+	display: flex;
+	justify-content: center;
 
 /*	img {
 		width: 100%;
@@ -98,7 +100,7 @@ export default function ProductCard({ data }) {
 	}
 	return (
 		<ProductCardLayout>
-			<Link href={{ pathname: '/product', query: { id }}}>
+			<Link href={{ pathname: '/product', query: { id }}} passHref>
 				<InnerWrapper>
 					<PriceTag>
 						<span>৳{price}</span>

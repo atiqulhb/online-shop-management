@@ -33,7 +33,7 @@ export default function ScrollBarContainer({ children, childrenStyle }) {
 			setScrollingTo(oldScrollTop < e.target.scrollTop)
 			oldScrollTop = e.target.scrollTop
 		}
-	},[])
+	},[setScrollingTo])
 
 	return (
 		<ScrollBarContainerWapper ref={ScrollRef} >
