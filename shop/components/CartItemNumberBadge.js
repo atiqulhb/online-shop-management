@@ -20,7 +20,7 @@ const CartItemNumberWrapper = styled.div`
 
 const CartItemNumberBadge = () => {
 	const { reloadCartItemBadgeNumber } = useLocalState()
-	console.log(reloadCartItemBadgeNumber)
+	
 	const [totalCartItems, setTotalCartItems] = useState(0)
 	// const cartItems = useReactiveVar(cartItemNumer)
 	// console.log(cartItems, 'from cart badge')
@@ -32,8 +32,8 @@ const CartItemNumberBadge = () => {
 	useEffect(() => {
 		const cartItemsInLocalStorage_serialized = localStorage.getItem('osm-cart')
 		const cartItemsInLocalStorage = JSON.parse(cartItemsInLocalStorage_serialized)
-
-		setTotalCartItems(cartItemsInLocalStorage || 0)
+		
+		setTotalCartItems(cartItemsInLocalStorage?.length || 0)
 	},[reloadCartItemBadgeNumber])
 	return (
 		<CartItemNumberWrapper>{totalCartItems}</CartItemNumberWrapper>

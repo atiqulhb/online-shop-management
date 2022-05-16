@@ -133,7 +133,8 @@ export const AuthProvider = ({ children, initialUserValue }) => {
   const [createUser, { data: addedUserData, loading, error: errorOnAddingUser }] = useMutation(ADD_USER, {
     onCompleted: async ({ createUser }) => {
       if (errorOnAddingUser) {
-        throw errorOnAddingUser
+        // throw errorOnAddingUser
+        console.log(errorOnAddingUser)
       }
       await setUser(createUser)
       router.push({ pathname: '/profile', query: { id: createUser.id }})
@@ -143,18 +144,17 @@ export const AuthProvider = ({ children, initialUserValue }) => {
   const [login, { data, loading: authLoading }] = useMutation(AUTH_MUTATION, {
     onCompleted: async ({ authenticateUserWithPassword: { item } = {}, error }) => {
       if (error) {
-        throw error;
+        // throw error;
+        console.log(error.message)
       }
 
       // Ensure there's no old unauthenticated data hanging around
       await client.resetStore();
 
       if (item) {
+        console.log(item)
         await setUser(item);
-        // console.log(user)
-        // console.log( typeof setReloadCartComponent )
         await router.push({ pathname: '/profile', query: { id: item.id }})
-        // router.push('/')
       }
     },
     // onError: console.error,

@@ -5,42 +5,7 @@ import { gql, useMutation } from '@apollo/client'
 import { useAuth } from '../lib/authentication'
 import { useRouter } from 'next/router'
 
-const ADD_USER = gql`
-  mutation ADD_PRODUCT(
-    $name: String
-    $email: String
-    $password: String
-  ) {
-    createUser(
-      data: {
-        name: $name
-        email: $email
-        password: $password
-      }
-    ) {
-      	id
-      	name
-			email
-    }
-  }
-`;
-
-const LOGIN = gql`
-	mutation LOGIN ($email: String, $password: String) {
-		authenticateUserWithPassword( 
-			email: $email
-			password: $password
-		){
-			item {
-				id
-				name
-				email
-			}
-		}
-	}
-`
-
-const AccountPageLayout = styled.div`
+const LoginLayout = styled.div`
 	width: 100%;
 	height: 100vh;
 	display: flex;
@@ -76,7 +41,7 @@ const Button = styled.button`
 	}
 `
 
-export default function Account() {
+export default function Login() {
 	const router = useRouter()
 
 	const { login } = useAuth()
@@ -85,8 +50,6 @@ export default function Account() {
 		password: '',	
 	})
 
-	const [login2] = useMutation(LOGIN)
-
 	function handleChange(e) {
 		let { value, name, type } = e.target
 		setVariables({
@@ -94,26 +57,24 @@ export default function Account() {
 			[name]: value,
 		});
 	}
+
+	async function handleSubmission(e) {
+		e.preventDefault();
+		await login({ variables });
+	}
+
 	return (
-		<AccountPageLayout>
+		<LoginLayout>
 			<Link href="http://localhost:8800/auth/google" passHref>
 				<Button>Login with Google</Button>
 			</Link>
 			<h1>Login</h1>
-			<StyledForm
-				onSubmit={async e => {
-			        e.preventDefault();
-			        const res = await login({ variables });
-			        // const res = await login2({ variables });
-			        // console.log(res)
-			        
-				}}
-			>
+			<StyledForm onSubmit={handleSubmission}>
 				<input type="email" name="email"  placeholder="Email" onChange={handleChange}/>
-				<input type="password" name="password" placeholder="Password" onChange={handleChange}/>
+				<input type="password" name="password" placeholder="Password" autoComplete="off" onChange={handleChange}/>
 				<button type="submit">Login</button>
 			</StyledForm>
-		</AccountPageLayout>
+		</LoginLayout>
 	)
 }
 

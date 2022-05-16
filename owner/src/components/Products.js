@@ -24,6 +24,8 @@ const Nav = styled.div`
 	}
 `
 
+const Contents = styled.div
+
 export default function Products() {
 	const [tab, setTab] = useState('all-products')
 	return (

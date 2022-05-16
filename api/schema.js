@@ -24,329 +24,312 @@ const fileAdapter = new LocalFileAdapter({
 
 const pubsub = new PubSub()
 
-
-exports.Stock = {
-  fields: {
-    name: { type: Text },
-    image: {
-      type: File,
-      adapter: fileAdapter,
-      hooks: {
-        beforeChange: async ({ existingItem }) => {
-          if (existingItem && existingItem.file) {
-            await fileAdapter.delete(existingItem.file);
-          }
+exports.schemas = {
+  Stock: {
+    fields: {
+      name: { type: Text },
+      image: {
+        type: File,
+        adapter: fileAdapter,
+        hooks: {
+          beforeChange: async ({ existingItem }) => {
+            if (existingItem && existingItem.file) {
+              await fileAdapter.delete(existingItem.file);
+            }
+          },
         },
       },
+      imageAttribution: { type: Text },
+      quantity: { type: Float },
+      buyingPrice: { type: Float },
+      date: { type: DateTime },
+      published: { type: Checkbox, DefaultValue: false },
+      publishedProduct: { type: Checkbox },
     },
-    imageAttribution: { type: Text },
-    quantity: { type: Float },
-    buyingPrice: { type: Float },
-    date: { type: DateTime },
-    published: { type: Checkbox, DefaultValue: false },
-    publishedProduct: { type: Checkbox },
-  },
-  hooks: {
-    afterDelete: async ({ existingItem }) => {
-      if (existingItem.file) {
-        await fileAdapter.delete(existingItem.file);
-      }
-    },
-  }
-}
-
-exports.Product = {
-  fields: {
-    name: { type: Text },
-    weight: { type: Float },
-    price: { type: Float },
-    brand: { type: Text },
-    category: { type: Text },
-    image: {
-      type: File,
-      adapter: fileAdapter,
-      isRequired: true,
-      hooks: {
-        beforeChange: async ({ existingItem }) => {
-          if (existingItem && existingItem.file) {
-            await fileAdapter.delete(existingItem.file);
-          }
-        },
-      },
-    },
-    imageAttribution: { type: Text },
-    details: { type: Text },
-    numberOfViews: { type: Integer }
-  },
-  hooks: {
-    afterDelete: async ({ existingItem }) => {
-      if (existingItem.file) {
-        await fileAdapter.delete(existingItem.file);
-      }
-    },
-  },
-};
-
-exports.Message = {
-  fields: {
-    from: { type: Relationship, ref: 'User', isRequired: true },
-    to: { type: Relationship, ref: 'User', isRequired: true },
-    text: { type: Text, isRequired: true },
-    timeStamp: { type: DateTime, isRequired: true }
-  },
-  hooks: {
-    afterChange: ({ updatedItem, originalInput }) => {
-      pubsub.publish('New_MESSAGE', updatedItem )
-    }
-  }
-}
-
-exports.Role = {
-  fields: {
-    title: { type: Text, defaultValue: "USER" },
-    assignTo: { type: Relationship, ref: 'User.role', many: true }
-  }
-}
-
-exports.User = {
-  // access: {
-  //   // anyone should be able to create a user (sign up)
-  //   create: true,
-  //   // only admins can see the list of users
-  //   read: userCanAccessUsers,
-  //   update: userCanAccessUsers,
-  //   delete: userIsAdmin,
-  // },
-  fields: {
-    name: { type: Text },
-    email: { type: Text, isUnique: true, isRequired: true },
-    isAdmin: { type: Checkbox, defaultValue: false },
-    password: { type: Password, isRequired: true },
-    cart: { type: Relationship, ref: 'Cart.owner', many: false },
-    orders: { type: Relationship, ref: 'Order.orderer', many: true },
-    messages: { type: Relationship, ref: 'Message', many: true },
-    role: { type: Relationship, ref: 'Role.assignTo', many: true },
-    secret: { type: Text },
-    googleId: { type: Text }
-    // plugins: [atTracking(), byTracking()],
-  },
-}
-
-exports.Location = {
-  fields: {
-    latitude: { type: Float },
-    longitude: { type: Float }
-  }
-}
-
-exports.DeliveryBoy = {
-  fields: {
-    name: { type: Text },
-    currentLocation: { type: Relationship, ref: 'Location' }
-  }
-}
-
-exports.Cart = {
-  fields: {
-    owner: { type: Relationship, ref: 'User.cart', many: false },
-    cartItems: { type: Relationship, ref: 'CartItem.cart', many: true },
-    totalItems: { type: Integer, defaultValue: 0 },
-    totalAmounts: { type: Float, defaultValue: 0 }
-  }
-}
-
-// exports.Testing = {
-//   fields: {
-//     name: { type: Text },
-//   },
-//   hooks: {
-//     resolveInput: ({ resolvedData }) => {
-//       console.log(resolvedData)
-//       return {
-//         name: `${resolvedData.name} and the test is working!`,
-//       };
-//     },
-//   },
-// };
-
-exports.HistoryOfAddingToCart = {
-  fields: {
-    date: { type: DateTime },
-    quantity: { type: Integer }
-  }
-}
-
-exports.CartItem = {
-  fields: {
-    cart: { type: Relationship, ref: 'Cart.cartItems', isRequired: true, many: false },
-    item: { type: Relationship, ref: 'Product', isRequired: true },
-    history: { type: Relationship, ref: 'HistoryOfAddingToCart', many: true },
-    quantity: { type: Integer, isRequired: true, defaultValue: 1},
-  }
-}
-
-exports.Order = {
-  fields: {
-    orderer: { type: Relationship, ref: 'User.orders', many: false },
-    cart: { type: Relationship, ref: 'Cart', many: false },
-    timeStamp: { type: DateTime },
-    totalItems: { type: Integer },
-    totalAmounts: { type: Float },
-    delivery: { type: Relationship, ref: 'Delivery.order', many: false }
-  },
-  hooks: {
-    afterChange: ({ updatedItem }) => {
-      pubsub.publish('ORDER_MADE', updatedItem )
-    }
-  }
-}
-
-exports.Courier = {
-  fields: {
-    name: { type: Text },
-    email: { type: Text, isRequired: true },
-    phoneNumber: { type: Text, isRequired: true },
-    deliveries: { type: Relationship, ref: 'Delivery.courier', many: true },
-  }
-}
-
-exports.Position = {
-  fields: {
-    longitude: { type: Float },
-    latitude: { type: Float },
-  },
-  hooks: {
-    afterChange: ({ updatedItem }) => {
-      pubsub.publish('CURRENT_LOCATION', updatedItem )
-    }
-  }
-}
-
-
-exports.Delivery = {
-  fields: {
-    order: { type: Relationship, ref: 'Order.delivery', many: false },
-    courier: { type: Relationship, ref: 'Courier.deliveries', many: false },
-    delivered: { type: Checkbox },
-    arriverd: { type: Checkbox },
-    position: { type: Relationship, ref: 'Position', many: true },
-    journeyStarted: { type: Checkbox }
-  },
-  hooks: {
-    afterChange: ({ updatedItem }) => {
-      // pubsub.publish('ORDER_MADE', updatedItem )
-    }
-  }
-}
-
-
-
-
-exports.ForgottenPasswordToken = {
-  // access: {
-  //   create: true,
-  //   read: true,
-  //   update: access.userIsAdmin,
-  //   delete: access.userIsAdmin,
-  // },
-  fields: {
-    user: {
-      type: Relationship,
-      ref: 'User',
-      // access: {
-      //   read: access.userIsAdmin,
-      // },
-    },
-    token: {
-      type: Text,
-      isRequired: true,
-      isUnique: true,
-      // access: {
-      //   read: access.userIsAdmin,
-      // },
-    },
-    requestedAt: { type: DateTime, isRequired: true },
-    accessedAt: { type: DateTime },
-    expiresAt: { type: DateTime, isRequired: true },
-  },
-  hooks: {
-    afterChange: async ({ context, updatedItem, existingItem }) => {
-      if (existingItem) return null;
-
-      const now = new Date().toISOString();
-
-      const { errors, data } = await context.executeGraphQL({
-        context: context.createContext({ skipAccessControl: true }),
-        query: `
-        query GetUserAndToken($user: ID!, $now: DateTime!) {
-          User( where: { id: $user }) {
-            id
-            email
-          }
-          allForgottenPasswordTokens( where: { user: { id: $user }, expiresAt_gte: $now }) {
-            token
-            expiresAt
-          }
+    hooks: {
+      afterDelete: async ({ existingItem }) => {
+        if (existingItem.file) {
+          await fileAdapter.delete(existingItem.file);
         }
-      `,
-        variables: { user: updatedItem.user.toString(), now },
-      });
-
-      if (errors) {
-        console.error(errors, `Unable to construct password updated email.`);
-        return;
-      }
-
-      const { allForgottenPasswordTokens, User } = data;
-      const forgotPasswordKey = allForgottenPasswordTokens[0].token;
-//       const url = process.env.SERVER_URL || 'http://localhost:3000';
-// 
-//       const props = {
-//         forgotPasswordUrl: `${url}/change-password?key=${forgotPasswordKey}`,
-//         recipientEmail: User.email,
-//       };
-
-      // this is option for mailgun transport
-
-      // const options = {
-      //   subject: 'Request for password reset',
-      //   to: User.email,
-      //   from: process.env.MAILGUN_FROM,
-      //   domain: process.env.MAILGUN_DOMAIN,
-      //   apiKey: process.env.MAILGUN_API_KEY,
-      // };
-
-      // options for nodemailer transport
-
-//       const options = {
-//         subject: 'Request for password reset',
-//         to: User.email,
-//         from: 'atiqulbhuiyan@gmail.com',
-//       };
-// 
-//       await sendEmail('forgot-password.jsx', props, options);
-
-
-      // wesbos solution
-
-      const mailRes = await transport.sendMail({
-        from: 'atique@veneraweb.com',
-        to: User.email,
-        subject: 'Your Password Reset Token',
-        html: makeANiceEmail(`Your Password Reset Token is here!
-          \n\n
-          <a href="${process.env.FRONTEND_URL}/change-password?key=${forgotPasswordKey}">Click Here to Reset</a>`),
-      });
-
-      // 4. Return the message
-      return { message: 'Check your email son!' };
+      },
+    }
+  },
+  Product: {
+    fields: {
+      name: { type: Text },
+      weight: { type: Float },
+      price: { type: Float },
+      brand: { type: Text },
+      category: { type: Text },
+      image: {
+        type: File,
+        adapter: fileAdapter,
+        isRequired: true,
+        hooks: {
+          beforeChange: async ({ existingItem }) => {
+            if (existingItem && existingItem.file) {
+              await fileAdapter.delete(existingItem.file);
+            }
+          },
+        },
+      },
+      imageAttribution: { type: Text },
+      details: { type: Text },
+      numberOfViews: { type: Integer }
+    },
+    hooks: {
+      afterDelete: async ({ existingItem }) => {
+        if (existingItem.file) {
+          await fileAdapter.delete(existingItem.file);
+        }
+      },
     },
   },
-};
+  Message: {
+    fields: {
+      from: { type: Relationship, ref: 'User', isRequired: true },
+      to: { type: Relationship, ref: 'User', isRequired: true },
+      text: { type: Text, isRequired: true },
+      timeStamp: { type: DateTime, isRequired: true }
+    },
+    hooks: {
+      afterChange: ({ updatedItem, originalInput }) => {
+        pubsub.publish('New_MESSAGE', updatedItem )
+      }
+    }
+  },
+  Role: {
+    fields: {
+      title: { type: Text, defaultValue: "USER" },
+      assignTo: { type: Relationship, ref: 'User.role', many: true }
+    }
+  },
+  User: {
+    // access: {
+    //   // anyone should be able to create a user (sign up)
+    //   create: true,
+    //   // only admins can see the list of users
+    //   read: userCanAccessUsers,
+    //   update: userCanAccessUsers,
+    //   delete: userIsAdmin,
+    // },
+    fields: {
+      name: { type: Text },
+      email: { type: Text, isUnique: true, isRequired: true },
+      isAdmin: { type: Checkbox, defaultValue: false },
+      password: { type: Password, isRequired: true },
+      cart: { type: Relationship, ref: 'Cart.owner', many: false },
+      orders: { type: Relationship, ref: 'Order.orderer', many: true },
+      messages: { type: Relationship, ref: 'Message', many: true },
+      role: { type: Relationship, ref: 'Role.assignTo', many: true },
+      secret: { type: Text },
+      googleId: { type: Text }
+      // plugins: [atTracking(), byTracking()],
+    },
+  },
+  Location: {
+    fields: {
+      latitude: { type: Float },
+      longitude: { type: Float }
+    }
+  },
+  DeliveryBoy: {
+    fields: {
+      name: { type: Text },
+      currentLocation: { type: Relationship, ref: 'Location' }
+    }
+  },
+  Cart: {
+    fields: {
+      owner: { type: Relationship, ref: 'User.cart', many: false },
+      cartItems: { type: Relationship, ref: 'CartItem.cart', many: true },
+      totalItems: { type: Integer, defaultValue: 0 },
+      totalAmounts: { type: Float, defaultValue: 0 }
+    }
+  },
+
+  // exports.Testing = {
+  //   fields: {
+  //     name: { type: Text },
+  //   },
+  //   hooks: {
+  //     resolveInput: ({ resolvedData }) => {
+  //       console.log(resolvedData)
+  //       return {
+  //         name: `${resolvedData.name} and the test is working!`,
+  //       };
+  //     },
+  //   },
+  // };,
+
+  HistoryOfAddingToCart: {
+    fields: {
+      date: { type: DateTime },
+      quantity: { type: Integer }
+    }
+  },
+  CartItem: {
+    fields: {
+      cart: { type: Relationship, ref: 'Cart.cartItems', isRequired: true, many: false },
+      item: { type: Relationship, ref: 'Product', isRequired: true },
+      history: { type: Relationship, ref: 'HistoryOfAddingToCart', many: true },
+      quantity: { type: Integer, isRequired: true, defaultValue: 1},
+    }
+  },
+  Order: {
+    fields: {
+      orderer: { type: Relationship, ref: 'User.orders', many: false },
+      cart: { type: Relationship, ref: 'Cart', many: false },
+      timeStamp: { type: DateTime },
+      totalItems: { type: Integer },
+      totalAmounts: { type: Float },
+      delivery: { type: Relationship, ref: 'Delivery.order', many: false }
+    },
+    hooks: {
+      afterChange: ({ updatedItem }) => {
+        pubsub.publish('ORDER_MADE', updatedItem )
+      }
+    }
+  },
+  Courier: {
+    fields: {
+      name: { type: Text },
+      email: { type: Text, isRequired: true },
+      phoneNumber: { type: Text, isRequired: true },
+      deliveries: { type: Relationship, ref: 'Delivery.courier', many: true },
+    }
+  },
+  Position: {
+    fields: {
+      longitude: { type: Float },
+      latitude: { type: Float },
+    },
+    hooks: {
+      afterChange: ({ updatedItem }) => {
+        pubsub.publish('CURRENT_LOCATION', updatedItem )
+      }
+    }
+  },
+  Delivery: {
+    fields: {
+      order: { type: Relationship, ref: 'Order.delivery', many: false },
+      courier: { type: Relationship, ref: 'Courier.deliveries', many: false },
+      delivered: { type: Checkbox },
+      arriverd: { type: Checkbox },
+      position: { type: Relationship, ref: 'Position', many: true },
+      journeyStarted: { type: Checkbox }
+    },
+    hooks: {
+      afterChange: ({ updatedItem }) => {
+        // pubsub.publish('ORDER_MADE', updatedItem )
+      }
+    }
+  },
+  ForgottenPasswordToken: {
+    // access: {
+    //   create: true,
+    //   read: true,
+    //   update: access.userIsAdmin,
+    //   delete: access.userIsAdmin,
+    // },
+    fields: {
+      user: {
+        type: Relationship,
+        ref: 'User',
+        // access: {
+        //   read: access.userIsAdmin,
+        // },
+      },
+      token: {
+        type: Text,
+        isRequired: true,
+        isUnique: true,
+        // access: {
+        //   read: access.userIsAdmin,
+        // },
+      },
+      requestedAt: { type: DateTime, isRequired: true },
+      accessedAt: { type: DateTime },
+      expiresAt: { type: DateTime, isRequired: true },
+    },
+    hooks: {
+      afterChange: async ({ context, updatedItem, existingItem }) => {
+        if (existingItem) return null;
+
+        const now = new Date().toISOString();
+
+        const { errors, data } = await context.executeGraphQL({
+          context: context.createContext({ skipAccessControl: true }),
+          query: `
+          query GetUserAndToken($user: ID!, $now: DateTime!) {
+            User( where: { id: $user }) {
+              id
+              email
+            }
+            allForgottenPasswordTokens( where: { user: { id: $user }, expiresAt_gte: $now }) {
+              token
+              expiresAt
+            }
+          }
+        `,
+          variables: { user: updatedItem.user.toString(), now },
+        });
+
+        if (errors) {
+          console.error(errors, `Unable to construct password updated email.`);
+          return;
+        }
+
+        const { allForgottenPasswordTokens, User } = data;
+        const forgotPasswordKey = allForgottenPasswordTokens[0].token;
+  //       const url = process.env.SERVER_URL || 'http://localhost:3000';
+  // 
+  //       const props = {
+  //         forgotPasswordUrl: `${url}/change-password?key=${forgotPasswordKey}`,
+  //         recipientEmail: User.email,
+  //       };
+
+        // this is option for mailgun transport
+
+        // const options = {
+        //   subject: 'Request for password reset',
+        //   to: User.email,
+        //   from: process.env.MAILGUN_FROM,
+        //   domain: process.env.MAILGUN_DOMAIN,
+        //   apiKey: process.env.MAILGUN_API_KEY,
+        // };
+
+        // options for nodemailer transport
+
+  //       const options = {
+  //         subject: 'Request for password reset',
+  //         to: User.email,
+  //         from: 'atiqulbhuiyan@gmail.com',
+  //       };
+  // 
+  //       await sendEmail('forgot-password.jsx', props, options);
 
 
+        // wesbos solution
 
-exports.customSchema = {
+        const mailRes = await transport.sendMail({
+          from: 'atique@veneraweb.com',
+          to: User.email,
+          subject: 'Your Password Reset Token',
+          html: makeANiceEmail(`Your Password Reset Token is here!
+            \n\n
+            <a href="${process.env.FRONTEND_URL}/change-password?key=${forgotPasswordKey}">Click Here to Reset</a>`),
+        });
+
+        // 4. Return the message
+        return { message: 'Check your email son!' };
+      },
+    },
+  }
+}
+
+
+exports.customSchemas = {
   types: [
     {
       type: 'type AdvanceUserType { name: String, email: String }'
@@ -355,10 +338,77 @@ exports.customSchema = {
       type: 'type ViewCount { id: ID!, numberOfViews: Int! }'
     },
     {
-      type: 'type SuccessMessage { success: Boolean }'
+      type: 'type SuccessMessage { success: Boolean }',
+    },
+    {
+      type: 'interface Book { title: String! }',
+      resolver: async (book, context, info) => {
+
+        if(book.historyBookWriter){
+          return 'HistoryBook';
+        }
+
+        if(book.biologyBookWriter){
+          return 'BiologyBook';
+        }
+  
+        return null
+      },
+      __resolveType: async (book, context, info) => {
+
+        if(book.historyBookWriter){
+          return 'HistoryBook';
+        }
+
+        if(book.biologyBookWriter){
+          return 'BiologyBook';
+        }
+  
+        return null
+      },
+      __isTypeOf: async (book, context, info) => {
+
+        if(book.historyBookWriter){
+          return 'HistoryBook';
+        }
+
+        if(book.biologyBookWriter){
+          return 'BiologyBook';
+        }
+  
+        return null
+      },
+    },
+    {
+      type: 'type HistoryBook implements Book { title: String!, historyBookWriter: String! }'
+    },
+    {
+      type: 'type BiologyBook implements Book { title: String!, biologyBookWriter: String! }'
     }
   ],
   queries: [
+    {
+      schema: 'allBooks: [Book]',
+      resolver: async (parent, args, context, info) => {
+
+        console.log(context)
+
+        return
+
+      },
+      __isTypeOf: (parent) => {
+
+        if (parent.historyBookWriter) {
+          return "HistoryBook"
+        }
+
+        if (parent.biologyBookWriter) {
+          return "BiologyBook"
+        }
+
+        return null
+      }
+    },
     {
       schema: 'allAdvanceTypedUsers: [AdvanceUserType]',
       resolver: async (parent, args, context, info) => {
@@ -393,6 +443,14 @@ exports.customSchema = {
     },
   ],
   mutations: [
+    {
+      schema: 'AddNewHistoryBook(title: String!, historyBookWriter: String!): HistoryBook',
+      resolver: async (obj, args, ctx) => {
+       
+        console.log(ctx)
+        return args
+      },
+    },
     {
       schema: 'addAdvanceTypedUser(name: String, email: String, password: String): AdvanceUserType',
       resolver: async (_, args, context) => {

@@ -22,7 +22,6 @@ export default function Customers() {
 	const { data } = useQuery(ALL_CUSTOMERS)
 	const [deleteAllUsers] = useMutation(DELETE_ALL_CUSTOMERS)
 	if (!data) return null
-	console.log(data)
 
 	let ids = [],
 		i = 0

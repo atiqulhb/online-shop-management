@@ -107,7 +107,6 @@ export default function Employees() {
 
 function AllEmployees() {
 	const { data } = useQuery(ALL_EMPLOYEES)
-	console.log(data)
 	return (
 		<div>
 			<ol>

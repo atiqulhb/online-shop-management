@@ -183,6 +183,40 @@ export default function CartPage() {
 		setItemsInCart(ItemsInCart)
 	}, [reloadShoppingCart])
 
+	useEffect(()=> {
+		const cartItemsInLocalStorage_serialized = localStorage.getItem('osm-cart')
+		const cartItemsInLocalStorage = JSON.parse(cartItemsInLocalStorage_serialized)
+
+		let totalAmounts = 0
+
+		for (let i=0; i<cartItemsInLocalStorage?.length; i++) {
+			let totalNumberOfThisItem = 0
+			for (let j=0; j<cartItemsInLocalStorage[i].history.length; j++) {
+				totalNumberOfThisItem+=cartItemsInLocalStorage[i].history[j].quantity
+			}
+			cartItemsInLocalStorage[i].quantity = totalNumberOfThisItem
+			totalAmounts+= cartItemsInLocalStorage[i].price*totalNumberOfThisItem
+		}
+
+		console.log(cartItemsInLocalStorage)
+
+		// setCartInfos({
+		// 	items: cartItemsInLocalStorage,
+		// 	totalItems: cartItemsInLocalStorage?.length || 0,
+		// 	totalAmounts
+		// })
+
+		// setReloadCartItemBadgeNumber(Math.random())
+
+
+
+		// if (user) {
+		// 	const res = getCartItemsFromServer({ variables: { id: user.id }})
+		// 	console.log(res)
+		// }
+
+	},[])
+
 	const [order] = useMutation(ORDER)
 
 	function IncreaseNumberOfItem(id) {
@@ -239,21 +273,22 @@ export default function CartPage() {
 
 	return (
 		<CartContainer>
-			{ (!user) ? (
+			{/* { (!user) ? (
 				<>
 				<span>You need to login</span>
 				<Login/>
 				</>
 			) : (
-				<>
+				<> */}
 					<CartItemsContainer>
-							<CartItems userId={user.id}/>
+							{/* <CartItems userId={user.id}/> */}
+							<CartItems/>
 					</CartItemsContainer>
 					<PaymentSection>
 						<Payment/>
 					</PaymentSection>
-				</>
-			)}
+				{/* </>
+			)} */}
 		</CartContainer>
 	)
 }

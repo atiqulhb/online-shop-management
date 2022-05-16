@@ -76,7 +76,6 @@ export default function Chats({ partner }) {
 
 	useEffect(() => {
 		let unsubscribe
-
 		if (subscribeToMore) {
 		  	unsubscribe = subscribeToMore({
 		      document: NEW_MESSAGE,
@@ -93,7 +92,7 @@ export default function Chats({ partner }) {
 	},[subscribeToMore])
 
 	if (loading) return <p>loading...</p>
-	if (error) return <p>error occured</p>
+	if (error) return <p>You did not choose any partner yet.</p>
 
 
 	return (

@@ -134,7 +134,7 @@ export default function DualRange({ min, max, onChange }) {
 
 	useEffect(() => {
 		onChange && onChange(dualRangeData)
-	},[dualRangeData,onChange])
+	},[dualRangeData])
 
 	function OnChangePriceRanges (e) {
 		const { name, value } = e.target

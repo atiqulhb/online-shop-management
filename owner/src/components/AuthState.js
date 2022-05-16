@@ -91,7 +91,6 @@ export default function AuthProvider({ children }) {
       if (error) {
         throw error;
       }
-      console.log(authenticatedUser)
       setUser(authenticatedUser);
 
     },
@@ -109,7 +108,6 @@ export default function AuthProvider({ children }) {
 
       if (item) {
         await setUser(item);
-        console.log(user)
         history.push('/')
       }
     },
@@ -128,15 +126,12 @@ export default function AuthProvider({ children }) {
 
       if (success) {
         setUser(null);
-        console.log(user)
         history.push({ pathname: '/'})
       }
     },
     onError: console.error,
   });
-
-  console.log('loading')
-      console.log(user)
+  
 
   return !userLoading ? (
 		<AuthContext.Provider

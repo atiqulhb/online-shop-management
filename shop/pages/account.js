@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { gql, useMutation } from '@apollo/client'
 import { useAuth } from '../lib/authentication'
 import CreateAccount from '../components/CreateAccount'
-import Login from '../components/Login.js'
+import Login from '../components/Login'
 
 const ADD_USER = gql`
   mutation ADD_PRODUCT(

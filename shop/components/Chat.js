@@ -57,7 +57,6 @@ const ChatStyle = styled.div`
 	transition: all .3s ease-in-out;
 	display: flex;
 	flex-direction: column;
-	background-color: #fff;
 	@media (max-width: 650px) {
 		display: none;
 	}
@@ -169,6 +168,7 @@ const SendButton = styled.div`
 	bottom: 5px;
 	right: 5px;
 	cursor: pointer;
+	background-color: #fff;
 	box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.25);
 	svg {
 		transform: scale(1.5)
@@ -233,7 +233,6 @@ export default function Chat() {
 	CustomerCare = CustomerCare.data?.allUsers[0]
 
 	const [send] = useMutation(SEND_MESSAGE)
- 
 
 	async function handleSend() {
 		if (text !== '') {
@@ -244,6 +243,7 @@ export default function Chat() {
 			}
 		}
 	}
+
 	return (
 		<ChatStyle ref={ChatRef}>
 			<ChatTopBar ref={ChatTopBarRef}>
@@ -258,7 +258,7 @@ export default function Chat() {
 			<MessageBox>
 				<AreaForMessages ref={MessagesRef}>
 					{/* <Messages from={to}/> */}
-					<Messages from={CustomerCare?.id}/>
+					{CustomerCare && user ?  <Messages customerCareId={CustomerCare?.id} userId={user?.id}/> : null }
 				</AreaForMessages>
 			</MessageBox>
 			<SendBox>

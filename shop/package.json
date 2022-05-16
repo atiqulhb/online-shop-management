@@ -96,7 +96,12 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^11.1.2",
+    "babel-plugin-styled-components": "^1.13.3",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2"
+  },
+  "resolutions": {
+    "next": ">=12.1.0",
+    "async": ">=2.6.4"
   }
 }

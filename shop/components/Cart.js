@@ -176,7 +176,7 @@ const OrderSection = styled.div`
 const TotalItems = styled.div`
 	float: left;
 `
-const TotalAmout = styled.div`
+const TotalAmount = styled.div`
 	float: right;
 `
 
@@ -296,7 +296,7 @@ export default function Cart() {
 						<TotalItems>{cartInfos.totalItems} item{cartInfos.totalItems > 1 ? 's' : null}</TotalItems>
 					</div>
 					<div>
-						<TotalAmout>{ formatter.format(cartInfos.totalAmounts).replace(/\D00(?=\D*$)/, '') }</TotalAmout>
+						<TotalAmount>{ formatter.format(cartInfos.totalAmounts).replace(/\D00(?=\D*$)/, '') }</TotalAmount>
 					</div>
 					<div>
 						{/* <Order onClick={ async () => { */}

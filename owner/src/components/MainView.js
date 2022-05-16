@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, Route, Switch, Redirect } from "react-router-dom"
+import { Link, Route, Switch, Redirect, NavLink } from "react-router-dom"
 import styled from 'styled-components'
 import { IoIosMenu } from "react-icons/io"
 import Stocks from './Stocks'
@@ -74,13 +74,13 @@ const SideBar = styled.div`
   flex-direction: column;
   align-items: center;
   overflow: hidden;
-  a {
-    font-size: 1em;
-    background-color: #FAFDFF;
-    padding: 5px 10px;
-    border-radius: 7.5px;
-    margin: 5px 0;
-  }
+  // a {
+  //   font-size: 1em;
+  //   background-color: #FAFDFF;
+  //   padding: 5px 10px;
+  //   border-radius: 7.5px;
+  //   margin: 5px 0;
+  // }
 `
 
 const Content = styled.div`
@@ -89,6 +89,46 @@ const Content = styled.div`
   float: left;
   transition: width 250ms ease-in-out;
 `
+
+// const StyledNavLink = styled(NavLink).attrs({ activeClassName })`
+
+//   &.${activeClassName} {
+//     background: red;
+//   }
+// `
+
+const StyledLink = styled(NavLink)`
+  width:150px;
+  padding: 10px 0;
+  border-radius: 50px;
+  text-align: center;
+  margin: 5px 0;
+  color: #000;
+  &: hover {
+    box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.25)
+  }
+
+  &.active {
+    box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.5)
+  }
+`
+
+// const StyledLink = styled(NavLink)`
+//   width:150px;
+//   padding: 10px;
+//   border-radius: 50px;
+//   text-align: center;
+//   margin: 5px 0;
+//   color: #000;
+//   &:hover {
+//     /*background-color:rgba(255,215,0,0.3);*/
+//     box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.05)
+//   }
+
+//   &.${props => props.activeClassName} {
+//     box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.1)
+//   }
+// `
 
 export default function MainView() {
   const { user, logout } = useAuth()
@@ -111,16 +151,16 @@ export default function MainView() {
        </TopBar>
        <Contents>
          <SideBar style={sideBarAppear ? { width: '300px' } : { width: '0px' }}>
-           <Link to="/">Over View</Link>
-           <Link to="/stocks">Stocks</Link>
-           <Link to="/products">Products</Link>
-           <Link to="/customers">Customers</Link>
-           <Link to="/employees">Employees</Link>
-           <Link to="/deliveries">Deliveries</Link>
-           <Link to="/economy">Economy</Link>
-           <Link to="/site-statistic">Site Statistic</Link>
-           <Link to="/orders">Orders</Link>
-           <Link to="/messages">Messages</Link>
+           <StyledLink to="/" exact strict>Over View</StyledLink>
+           <StyledLink to="/stocks" exact strict>Stocks</StyledLink>
+           <StyledLink to="/products" exact strict>Products</StyledLink>
+           <StyledLink to="/customers" exact strict>Customers</StyledLink>
+           <StyledLink to="/employees" exact strict>Employees</StyledLink>
+           <StyledLink to="/deliveries" exact strict>Deliveries</StyledLink>
+           <StyledLink to="/economy" exact strict>Economy</StyledLink>
+           <StyledLink to="/site-statistic" exact strict>Site Statistic</StyledLink>
+           <StyledLink to="/orders" exact strict>Orders</StyledLink>
+           <StyledLink to="/messages" exact strict>Messages</StyledLink>
          </SideBar>
          <Content  style={sideBarAppear ? { width: 'calc(100% - 300px)' } : { width: '100%' }}>
           <Switch>

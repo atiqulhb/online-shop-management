@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import styled from 'styled-components'
 import { gql, useMutation, useQuery, useSubscription } from '@apollo/client'
 import ScrollBar2 from './ScrollBar2'
-import { useAuth } from '../lib/authentication'
 
 const NEW_MESSAGE = gql`
 	subscription NEW_MESSAGE {
@@ -72,9 +71,8 @@ const Message = styled.div`
 	}
 `
 
-export default function Messages({ from }) {
-	const { user } = useAuth()
-	const { data, subscribeToMore } = useQuery(ALL_MESSAGES, { variables: { senderId: from, receiverId: user?.id }})
+export default function Messages({ customerCareId, userId }) {
+	const { data, subscribeToMore } = useQuery(ALL_MESSAGES, { variables: { senderId: customerCareId, receiverId: userId }})
 
 	useEffect(() => {
 		let unsubscribe

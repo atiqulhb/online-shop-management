@@ -57,7 +57,7 @@ export default function BottomNavigator() {
 					<BiCart/>
 					{ isAuthenticated ? (
 						<SpaceForCartBadge>
-							<CartItemNumberBadge/>
+							{/* <CartItemNumberBadge/> */}
 						</SpaceForCartBadge>
 					) : null }
 				</Cart>

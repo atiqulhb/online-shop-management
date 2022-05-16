@@ -12,7 +12,6 @@ const AppStyle = styled.div`
 
 function PrivateRoute ({ children, ...rest }) {
    const { isAuthenticated } = useAuth()
-   console.log(isAuthenticated)
   return (
     <Route {...rest} render={({ location }) => {
       return isAuthenticated === true
@@ -28,7 +27,6 @@ function PrivateRoute ({ children, ...rest }) {
 
 function LoginRoute ({ children, ...rest }) {
    const { isAuthenticated } = useAuth()
-   console.log(isAuthenticated)
   return (
     <Route {...rest} render={() => {
       return isAuthenticated === false
@@ -41,7 +39,6 @@ function LoginRoute ({ children, ...rest }) {
 
 export default function App() {
   const { isAuthenticated, isLoading } = useAuth()
-   console.log(isAuthenticated)
   return (
     <>
       <GlobalStyle/>

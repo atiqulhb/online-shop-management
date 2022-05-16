@@ -19,7 +19,7 @@ const DELETE_PRODUCT = gql`
 	    id
 	  }
 	}
-	`
+`
 
 const ProductsTable = styled.div`
 	width: 100%;
@@ -30,13 +30,15 @@ const ProductsTable = styled.div`
  		td, th {
    			border: 1px solid #999;
    			text-align: center;
+			&:last-child {
+				cursor: pointer;
+			}
 		}
 	}
 `
 
 export default function AllProducts() {
 	const { data } = useQuery(All_PRODUCT_QUERY)
-	console.log(data)
 	const [ deleteProduct ] = useMutation(DELETE_PRODUCT)
 	return (
 		<ProductsTable>
@@ -57,12 +59,17 @@ export default function AllProducts() {
 							<td>{price}</td>
 							<td
 								onClick={() => {
-									deleteProduct({ variables: { id }})
+									deleteProduct({
+										variables: { id },
+										update: (cache,payload) => cache.evict(cache.identify(payload.data.deleteProduct))
+									})
 									.catch(err => {
 							            alert(err.message)
 							        })
 							    }}
-							><BsTrash/></td>
+							>
+								<BsTrash/>
+							</td>
 						</tr>
 					))}
 				</tbody>

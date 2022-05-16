@@ -88,7 +88,7 @@ const AddToCartWrapper = styled.div`
 	cursor: pointer;
 `
 
-export default function ProductPage(props) {
+export default function ProductPage() {
 	 const router = useRouter()
   	const { id } = router.query
 	const { user } = useAuth()
@@ -114,7 +114,8 @@ export default function ProductPage(props) {
 		<ProductPageLayout>
 			<ScrollBarContainer>
 				<LargeImage>
-					<Image src={image.publicUrl} width={600} height={600} placeholder="blur" alt=""/>
+					{/* <Image src={image.publicUrl} width={600} height={600} placeholder="blur" alt=""/> */}
+					<Image src={image.publicUrl} width={600} height={600} alt=""/>
 				</LargeImage>
 				<DetailsSection>
 					<h1>{brand}</h1>

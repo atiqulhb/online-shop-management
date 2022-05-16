@@ -11,6 +11,8 @@ import useWindowSize from '../hooks/useWindowSize'
 import ScrollBar from './ScrollBarContainer.js'
 import { useAuth } from '../lib/authentication'
 import ProductCard from './ProductCard'
+import CustomSelect2 from './CustomSelect2'
+
 
 const ALL_PRODUCTS_QUERY = gql`
 	query ALL_ITEMS_QUERY($category: String, $brand: String, $price_lte: Float, $price_gte: Float, $sortBy: [SortProductsBy!]){
@@ -171,21 +173,25 @@ export default function AllProducts() {
 
 	const SortingOptionsAndValues = [{option: 'Price low to high', value: 'price_ASC'}, {option: 'Price high to low', value: 'price_DESC'},  {option: 'A-Z', value: 'name_ASC'},  {option: 'Z-A', value: 'name_DESC'}]
 	
+	console.log(FilteredSortedUniqueBrandNames)
+
 	return (
 		<AllProductsLayout>
 			{ !FNQLoading ? (
 				<FiltersAndSorting>
 					<Brand>
-						<CustomSelect name="brand" style={{width: '100px', height: '35px'}} options={FilteredSortedUniqueBrandNames} header="All Brands" onSelect={handleChange}/>
+						{/* <CustomSelect name="brand" style={{width: '100px', height: '35px'}} options={FilteredSortedUniqueBrandNames} header="All Brands" onSelect={handleChange}/> */}
+						{/* <CustomSelect2 options={FilteredSortedUniqueBrandNames}/> */}
 					</Brand>
 					<Category>
-						<CustomSelect name="category" style={{width: '120px', height: '35px'}} options={FilteredUniqueCategoryNames} header="All Categories"  onSelect={handleChange}/>
+						{/* <CustomSelect name="category" style={{width: '120px', height: '35px'}} options={FilteredUniqueCategoryNames} header="All Categories"  onSelect={handleChange}/> */}
+						{/* <CustomSelect name="category" style={{width: '120px', height: '35px'}}/> */}
 					</Category>
 					<PriceRange>
 						<DualRange min={MinimumPrice} max={MaximumPrice} onChange={ data => setFilterVariables({...filterVariables, price_gte: data.minValue, price_lte: data.maxValue})}/>
 					</PriceRange>
 					<Sorting>
-						<CustomSelect name="sortBy" style={{width: '130px', height: '35px'}} options={SortingOptionsAndValues} onSelect={handleChange}/>
+						{/* <CustomSelect name="sortBy" style={{width: '130px', height: '35px'}} options={SortingOptionsAndValues} onSelect={handleChange}/> */}
 					</Sorting>
 				</FiltersAndSorting>
 			) : null }

@@ -113,10 +113,10 @@ export default function TopBar() {
 	const { pathname } = useRouter()
 
 	const TopBarRef = useRef()
-	useEffect(() => {
-		const TopBarHeight = TopBarRef.current.clientHeight
-		setTopBarInfo({...topBarInfo, height: TopBarHeight})
-	},[topBarInfo,setTopBarInfo])
+	// useEffect(() => {
+	// 	const TopBarHeight = TopBarRef.current.clientHeight
+	// 	setTopBarInfo({...topBarInfo, height: TopBarHeight})
+	// },[topBarInfo,setTopBarInfo])
 	// console.log(isLoading)
 	const { toggle, fullScreen } = useFullScreen()
 	// const { user } = useUser()
@@ -167,7 +167,7 @@ export default function TopBar() {
 					<Cart>
 						<span>cart</span>
 						<SpaceForCartBadge>
-							{/* <CartItemNumberBadge/> */}
+							<CartItemNumberBadge/>
 						</SpaceForCartBadge>
 					</Cart>
 				</Link>

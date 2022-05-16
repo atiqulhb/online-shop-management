@@ -42,7 +42,6 @@ const Publish = styled.button`
 
 export default function AllStocks() {
 	const { data } = useQuery(ALL_STOCKS)
-	console.log(data)
 	return (
 		<AllStocksStyle>
 			<table>

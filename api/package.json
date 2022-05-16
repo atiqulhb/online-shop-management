@@ -18,31 +18,31 @@
   },
   "dependencies": {
     "@keystonejs/adapter-mongoose": "^11.0.0",
-    "@keystonejs/app-admin-ui": "^7.3.8",
     "@keystonejs/app-graphql": "^6.2.0",
     "@keystonejs/app-static": "^5.2.1",
-    "@keystonejs/auth-passport": "^6.1.2",
     "@keystonejs/auth-password": "^6.0.0",
     "@keystonejs/email": "^5.2.0",
     "@keystonejs/file-adapters": "^7.1.1",
     "@keystonejs/keystone": "^19.0.0",
     "@keystonejs/list-plugins": "^7.1.5",
+    "@prisma/sdk": ">=2.20.0",
+    "chrono-node": ">=2.2.4",
     "connect-redis": "^6.0.0",
     "cross-env": "^7.0.3",
     "esm": "^3.2.25",
     "express-session": "^1.17.1",
+    "glob-parent": ">=5.1.2",
     "googleapis": "^76.0.0",
     "graphql-playground-middleware-express": "^1.7.22",
     "graphql-subscriptions": "^1.2.0",
+    "minimist": ">=0.2.1 <1.0.0 || >=1.2.3",
     "mongodb": "^3.6.6",
     "mongoose": "^5.12.5",
+    "node-fetch": ">=2.6.1 <3.0.0-beta.1",
     "nodemailer": "^6.6.0",
     "otplib": "^12.0.1",
     "redis": "^3.1.2",
     "stripe": "^8.160.0"
-  },
-  "devDependencies": {
-    "yarn-audit-fix": "^6.4.2"
   },
   "resolutions": {
     "minimist": ">=0.2.1 <1.0.0 || >=1.2.3",
@@ -51,6 +51,11 @@
     "netmask": ">=2.0.1",
     "chrono-node": ">=2.2.4",
     "glob-parent": ">=5.1.2",
-    "pac-resolver": ">=5.0.0"
+    "pac-resolver": ">=5.0.0",
+    "set-value": ">=4.0.1",
+    "nth-check": ">=2.0.1",
+    "@prisma/sdk": ">=2.20.0",
+    "graphiql": ">=1.4.7",
+    "markdown-it": ">=12.3.2"
   }
 }

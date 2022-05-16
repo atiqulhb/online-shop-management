@@ -33,15 +33,15 @@ export default function Inner({ children }) {
   return (
     <InnerStyled>
       <TopBar/>
-      {/* <TopBarForMobile/> */}
-      {/* {notification.initial ? <Notification/> : null } */}
-      {/* {menuState.initial ? <Menu/> : null} */}
+      <TopBarForMobile/>
+      {notification.initial ? <Notification/> : null }
+      {menuState.initial ? <Menu/> : null}
       {cartState.initial ? <Cart/> : null}
-      {/* <Chat/> */}
+      <Chat/>
       <InnerInner style={ windowWidth <= 650 ? scrollingTo ? { top: '0px', height: '100%' } : { top: '0px', height: 'calc(100% - 90px)' } : { height: `calc(100% - ${topBarInfo.height}px)`} }>
         {children}
       </InnerInner>
-      {/* <BottomNavigator/> */}
+      <BottomNavigator/>
     </InnerStyled>
   )
 }

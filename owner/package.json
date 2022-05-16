@@ -8,10 +8,13 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "add": "^2.0.6",
+    "ansi-html": "https://registry.npmjs.org/ansi-html-community/-/ansi-html-community-0.0.8.tgz",
     "apollo-link-error": "^1.1.13",
     "apollo-upload-client": "^14.1.3",
+    "browserslist": ">=4.16.5",
     "compressorjs": "^1.0.7",
     "deepmerge": "^4.2.2",
+    "glob-parent": ">=5.1.2",
     "graphql": "^15.5.0",
     "leaflet": "^1.7.1",
     "mapbox-gl": "^2.4.0",
@@ -56,6 +59,10 @@
   },
   "resolutions": {
     "browserslist": ">=4.16.5",
-    "glob-parent": ">=5.1.2"
+    "glob-parent": ">=5.1.2",
+    "nth-check": ">=2.0.1",
+    "set-value": ">=4.0.1",
+    "immer": ">=9.0.6",
+    "ansi-html": "https://registry.npmjs.org/ansi-html-community/-/ansi-html-community-0.0.8.tgz"
   }
 }

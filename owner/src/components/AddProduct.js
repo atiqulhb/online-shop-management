@@ -57,7 +57,28 @@ export default function AddProduct() {
 		image: undefined
 	})
 
-	const [addProduct] = useMutation(ADD_PRODUCT, { variables })
+	const [addProduct] = useMutation(ADD_PRODUCT, {
+		variables,
+		update(cache, { data: { createProduct } }) {
+			cache.modify({
+			  fields: {
+				allProducts(existingProducts = []) {
+				  const newProductRef = cache.writeFragment({
+					data: createProduct,
+					fragment: gql`
+					  fragment NewProduct on Product {
+						id
+						name
+						price
+					  }
+					`
+				  });
+				  return [...existingProducts, newProductRef]
+				}
+			  }
+			})
+		}
+	})
 
 	function handleChange(e) {
 		let { value, name, type, validity: { valid }, files } = e.target
@@ -81,8 +102,8 @@ export default function AddProduct() {
 	}
 
 	async function handleSubmit(e) {
-		e.preventDefault();
-        const res = await addProduct();
+		e.preventDefault()
+        const res = await addProduct()
         console.log(res);
         document.getElementById('form').reset()
         setVariables({ name: undefined, brand: undefined, category: undefined, price: undefined, image: undefined })

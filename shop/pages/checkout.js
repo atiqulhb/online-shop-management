@@ -100,7 +100,7 @@ function CheckoutForm() {
   const elements = useElements();
   const options = useOptions();
 
-  const [checkout] = useMutation(CHECKOUT)
+  const [checkout, { error }] = useMutation(CHECKOUT)
 
 	 const handleSubmit = async event => {
     event.preventDefault();
@@ -124,6 +124,7 @@ function CheckoutForm() {
 	return (
 		<CheckoutFormStyle onSubmit={handleSubmit}>
 			<h2>Pay with card</h2>
+      { error ? <span>{error.message}</span> : null }
 			<label>Card Information</label>
 			{/* <input/> */}
 			{/* <div> */}

@@ -16,4 +16,21 @@ module.exports = withBundleAnalyzer({
   images: {
     domains: [process.env.IMAGE_HOST],
   },
+  poweredByHeader: false,
+//   async headers() {
+//     return [
+//       {
+//         // Apply these headers to all routes in your application.
+//         source: '/(.*)',
+//         headers: [
+//           {
+//             key: 'Content-Security-Policy',
+//             value: "frame-ancestors 'self'"
+//           }
+// 
+//         : 
+//         ],
+//       },
+//     ]
+//   },
 })

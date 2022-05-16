@@ -75,9 +75,9 @@ function LocalState({ children }) {
 
   useEffect(() => {
     if (navigator.sendBeacon) {
-      console.log('Beacon Api supported')
+      // console.log('Beacon Api supported')
     } else {
-      console.log('Beacon Api not supported')
+      // console.log('Beacon Api not supported')
     }
     if (user) {
       console.log(user)
@@ -89,7 +89,7 @@ function LocalState({ children }) {
       let cartItemsInServer = [],
           i = 0
 
-      for (i;i<user.cart.cartItems.length;i++) {
+      for (i;i<user.cart?.cartItems.length;i++) {
         let cartItemInServer = { ...user.cart.cartItems[i].item, quantity: user.cart.cartItems[i].quantity }
         cartItemsInServer.push(cartItemInServer)
       }
@@ -115,7 +115,8 @@ function LocalState({ children }) {
           const index = ItemsInCart_deserialized.indexOf(ItemInCart)
           if (index >= 0) { ItemsInCart_deserialized.splice(index, 1)}
           ItemInCart.quantity += item.quantity
-          ItemsInCart_deserialized.push(ItemInCart)
+          // ItemsInCart_deserialized.push(ItemInCart)
+          ItemsInCart_deserialized.splice(index, 0, ItemInCart)
         }
         else {
           ItemsInCart_deserialized.push(item)
@@ -149,11 +150,12 @@ function LocalState({ children }) {
         const ItemsInCart_deserialized = JSON.parse(ItemsInCart)
         const ItemInCart = ItemsInCart_deserialized.find(c => c.id === item.id);
         if (ItemInCart) {
-          const index = ItemsInCart_deserialized.indexOf(ItemInCart)
-          if (index >= 0) { ItemsInCart_deserialized.splice(index, 1)}
+          // const index = ItemsInCart_deserialized.indexOf(ItemInCart)
+          // if (index >= 0) { ItemsInCart_deserialized.splice(index, 1)}
           let newHistory = ItemInCart.history.concat(item.history)
           ItemInCart.history = newHistory
-          ItemsInCart_deserialized.push(ItemInCart)
+          // ItemsInCart_deserialized.push(ItemInCart)
+          // ItemsInCart_deserialized.splice(index, 0, ItemInCart)
         }
         else {
           ItemsInCart_deserialized.push(item)

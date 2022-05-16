@@ -85,11 +85,11 @@ export default function CartItemforLocalStorage({ item, callForReload }) {
 			const itemsInCart_deserialized = JSON.parse(itemsInCart)
 			const itemInCart = itemsInCart_deserialized.find(c => c.id === id)
 			const index = itemsInCart_deserialized.indexOf(itemInCart)
-			if (index >= 0) { itemsInCart_deserialized.splice(index, 1)}
+			// if (index >= 0) { itemsInCart_deserialized.splice(index, 1)}
 			// itemInCart.quantity += 1
 			let newHistory = itemInCart.history.concat([{ date: Date.now(), quantity: 1 }])
       		itemInCart.history = newHistory
-			if (index >= 0) { itemsInCart_deserialized.splice(index, 0, itemInCart)}
+			// if (index >= 0) { itemsInCart_deserialized.splice(index, 0, itemInCart)}
 			const ItemsInCart_serialized = JSON.stringify(itemsInCart_deserialized)
 	        localStorage.setItem('osm-cart', ItemsInCart_serialized)
 	        callForReload && callForReload(Math.random())
@@ -101,8 +101,8 @@ export default function CartItemforLocalStorage({ item, callForReload }) {
 			const itemsInCart = localStorage.getItem('osm-cart')
 			const itemsInCart_deserialized = JSON.parse(itemsInCart)
 			const itemInCart = itemsInCart_deserialized.find(c => c.id === id)
-			const index = itemsInCart_deserialized.indexOf(itemInCart)
-			if (index >= 0) { itemsInCart_deserialized.splice(index, 1)}
+			// const index = itemsInCart_deserialized.indexOf(itemInCart)
+			// if (index >= 0) { itemsInCart_deserialized.splice(index, 1)}
 			// if (itemInCart.quantity > 1) { itemInCart.quantity -= 1 }
 
 			console.log(itemInCart)
@@ -117,7 +117,7 @@ export default function CartItemforLocalStorage({ item, callForReload }) {
 			if (totalitems > 1) {
 				let newHistory = itemInCart.history.concat([{ date: Date.now(), quantity: -1 }])
           		itemInCart.history = newHistory
-				if (index >= 0) { itemsInCart_deserialized.splice(index, 0, itemInCart)}
+				// if (index >= 0) { itemsInCart_deserialized.splice(index, 0, itemInCart)}
 				const ItemsInCart_serialized = JSON.stringify(itemsInCart_deserialized)
 		        localStorage.setItem('osm-cart', ItemsInCart_serialized)
 		        callForReload && callForReload(Math.random())
@@ -150,7 +150,7 @@ export default function CartItemforLocalStorage({ item, callForReload }) {
 				<span>{item.price} x {item.quantity}</span>
 		 	</TitlePriceAndQuantity>
 		 	<SingleItemTotalPrice>
-			 	<span>{(item.price*item.quantity).toFixed(2)}</span>
+			 	<span>{(item.price*item.quantity).toFixed(2).replace(/\D00(?=\D*$)/, '')}</span>
 		 	</SingleItemTotalPrice>
 	 		<IncreaseDecreaseContainer>
 				<IncreaseDecrease onClick={() => IncreaseNumberOfItem(item.id)}>+</IncreaseDecrease>

@@ -53,9 +53,7 @@ export default function Login() {
 	const { login } = useAuth()
 	let history = useHistory()
 	const { state } = useLocation()
-
-	console.log(state)
-
+	
 	const [ redirectToReferrer, setRedirectToReferrer] = useState(false)
 
 	const [role, setRole] = useState('')
