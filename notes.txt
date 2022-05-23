@@ -1,0 +1,5 @@
+study later
+    1. https://github.com//rodneylab/sveltekit-image-plugin
+
+    2. Leaflet Tips and Tricks
+        https://leanpub.com/leaflet-tips-and-tricks/read

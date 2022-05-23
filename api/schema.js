@@ -25,6 +25,19 @@ const fileAdapter = new LocalFileAdapter({
 const pubsub = new PubSub()
 
 exports.schemas = {
+  OtherOption: {
+    fields: {
+      key: { type: Text },
+      value: { type: Text }
+    }
+  },
+  Category: {
+    fields: {
+      title: { type: Text },
+      categoryUnderCategory: { type: Relationship, ref: "Category", many: true },
+      otherOptions: { type: Relationship, ref: "OtherOption", many: true }
+    }
+  },
   Stock: {
     fields: {
       name: { type: Text },
@@ -325,7 +338,8 @@ exports.schemas = {
         return { message: 'Check your email son!' };
       },
     },
-  }
+  },
+
 }
 
 
